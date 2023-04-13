@@ -1,18 +1,17 @@
 .game-container {
-  display: flex;
-  flex-direction: column;
-width: 100%;
+width: 800px;
 
+}
+
+.number {
+  width: 100px;
+  height: 300px;
 }
 
 .backgammon-board {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 50px;
-
-}
-
-.board-image {
-   height: 700px;
+ width: 800px;
+ height: 600px;
+ background-image: url('./assets/backgammon.jpg');
+background-size: contain;
 }
