@@ -6,6 +6,7 @@ background-size: contain;
 
 .backgammon-board {
   display: flex;
+  flex-direction: row-reverse;
   flex-wrap: wrap;
   margin-left: 85px;
 width: 600px;
