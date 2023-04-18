@@ -4,7 +4,6 @@ import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
 
 function App() {
-  const [board, setBoard] = useState(Array(24).fill(brown));
   const [backgammon, setBackgammon] = useState([
     [2, 0, 1],
     [0, -1, 2],
@@ -38,99 +37,81 @@ function App() {
   const handleClick = (e) => {
     debugger;
   };
-
   return (
     <div className="game-container">
       <div className="backgammon-board">
-        <div className="first-quadrant">
+        <div className="quadrant">
           {backgammon.slice(0, 6).map((value, index) => {
-            const pieceImage = value[1] === 0 ? white : brown;
-            const pieceImages = Array.from({ length: value[0] }, (_, i) => (
-              <img
-                className="gammon-piece"
-                key={i}
-                src={pieceImage}
-                alt="Piece"
-              />
-            ));
-
+            const pieceImage =
+              value[1] === 0 ? white : value[1] === 1 ? brown : null;
             return (
-              <div
-                key={index}
-                className={`column ${value}`}
-                onClick={() => handleClick(index)}
-              >
-                {pieceImages}
+              <div key={index}>
+                {[...Array(value[0])].map((_, i) => (
+                  <img
+                    key={i}
+                    className={`gammon-piece ${value}`}
+                    onClick={() => handleClick(index)}
+                    src={pieceImage}
+                    alt="piece"
+                  />
+                ))}
               </div>
             );
           })}
         </div>
-
-        <div className="second-quadrant">
-          {backgammon.slice(6, 13).map((value, index) => {
-            const pieceImage = value[1] === 0 ? white : brown;
-            const pieceImages = Array.from({ length: value[0] }, (_, i) => (
-              <img
-                className="gammon-piece"
-                key={i}
-                src={pieceImage}
-                alt="Piece"
-              />
-            ));
-
+        <div className="quadrant">
+          {backgammon.slice(6, 12).map((value, index) => {
+            const pieceImage =
+              value[1] === 0 ? white : value[1] === 1 ? brown : null;
             return (
-              <div
-                key={index}
-                className={`column ${value}`}
-                onClick={() => handleClick(index)}
-              >
-                {pieceImages}
+              <div key={index}>
+                {[...Array(value[0])].map((_, i) => (
+                  <img
+                    key={i}
+                    className={`gammon-piece ${value}`}
+                    onClick={() => handleClick(index)}
+                    src={pieceImage}
+                    alt="piece"
+                  />
+                ))}
               </div>
             );
           })}
         </div>
-        <div className="third-quadrant">
-          {backgammon.slice(14, 20).map((value, index) => {
-            const pieceImage = value[1] === 0 ? white : brown;
-            const pieceImages = Array.from({ length: value[0] }, (_, i) => (
-              <img
-                className="gammon-piece"
-                key={i}
-                src={pieceImage}
-                alt="Piece"
-              />
-            ));
-
+        <div className="quadrant">
+          {backgammon.slice(12, 18).map((value, index) => {
+            const pieceImage =
+              value[1] === 0 ? white : value[1] === 1 ? brown : null;
             return (
-              <div
-                key={index}
-                className={`column ${value}`}
-                onClick={() => handleClick(index)}
-              >
-                {pieceImages}
+              <div key={index}>
+                {[...Array(value[0])].map((_, i) => (
+                  <img
+                    key={i}
+                    className={`gammon-piece ${value}`}
+                    onClick={() => handleClick(index)}
+                    src={pieceImage}
+                    alt="piece"
+                  />
+                ))}
               </div>
             );
           })}
         </div>
-        <div className="fourth-quadrant">
-          {backgammon.slice(21, 27).map((value, index) => {
-            const pieceImage = value[1] === 0 ? white : brown;
-            const pieceImages = Array.from({ length: value[0] }, (_, i) => (
-              <img
-                className="gammon-piece"
-                key={i}
-                src={pieceImage}
-                alt="Piece"
-              />
-            ));
-
+        <div className="quadrant">
+          {backgammon.slice(18, 24).map((value, index) => {
+            const pieceImage =
+              value[1] === 0 ? white : value[1] === 1 ? brown : null;
             return (
-              <div
-                key={index}
-                className={`column ${value}`}
-                onClick={() => handleClick(index)}
-              >
-                {pieceImages}
+              <div key={index}>
+                {[...Array(value[0])].map((_, i) => (
+                  <img
+                    key={i}
+                    className={`gammon-piece ${value}`}
+                    onClick={() => handleClick(index)}
+                    src={pieceImage}
+                    alt="piece"
+                  />
+                ))}
               </div>
             );
           })}

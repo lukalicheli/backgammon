@@ -1,25 +1,30 @@
 .game-container {
  display: flex;
+ background-color: green;
 width: 800px;
-background-color: green;
-height: 800px;
+height: 600px;
 }
 
 .backgammon-board {
-  display: grid;
+display: flex;
+flex-wrap: wrap;
 width: 100%;
 height: 100%;
-
 }
 
 .gammon-piece {
+  display: flex;
   width: 50px;
   height: 50px;
 }
 
-.column {
+.quadrant {
   display: flex;
-  flex-direction: column;
-  width: 16.666%;
-  height: 45%;
+  flex-direction: row;
+  width: 50%;
 }
+
+
+
+
+
