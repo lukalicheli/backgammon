@@ -25,6 +25,18 @@ height: 100%;
   
 }
 
+.quadrant.one , .quadrant.two {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.quadrant.three , .quadrant.four {
+  display: flex;
+  align-items: flex-end;
+  
+}
+
 
 
 

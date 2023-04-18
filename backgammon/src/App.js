@@ -62,10 +62,10 @@ function App() {
     <div className="game-container">
       <div className="backgammon-board">
         <div className="quadrant one">
-          {backgammon.slice(0, 6).map(renderColumn)}
+          {backgammon.slice(6, 12).map(renderColumn)}
         </div>
         <div className="quadrant two">
-          {backgammon.slice(6, 12).map(renderColumn)}
+          {backgammon.slice(0, 6).map(renderColumn)}
         </div>
         <div className="quadrant three">
           {backgammon.slice(12, 18).map(renderColumn)}
