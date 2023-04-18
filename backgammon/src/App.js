@@ -32,7 +32,7 @@ function App() {
   ]);
 
   const handleClick = (e) => {
-    debugger;
+    console.log(e);
   };
 
   const renderColumn = (value, index) => {
@@ -43,7 +43,7 @@ function App() {
     } else {
       // column with pieces
       return (
-        <div key={index}>
+        <div className="column" key={index}>
           {[...Array(value[0])].map((_, i) => (
             <img
               key={i}
