@@ -48,7 +48,7 @@ function App() {
             <img
               key={i}
               className={`gammon-piece ${value}`}
-              onClick={() => handleClick(index)}
+              onClick={() => handleClick(value, index)}
               src={pieceImage}
               alt="piece"
             />
