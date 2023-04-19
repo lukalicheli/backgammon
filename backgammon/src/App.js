@@ -31,15 +31,22 @@ function App() {
     [2, 1, 24],
   ]);
 
-  const handleClick = (e) => {
-    console.log(e);
+  const handleClick = (value, index) => {
+    console.log(index);
+    console.log(value);
   };
 
   const renderColumn = (value, index) => {
     const pieceImage = value[1] === 0 ? white : value[1] === 1 ? brown : null;
     if (value[0] === 0 && value[1] === -1) {
       // empty column
-      return <div key={index} className="gammon-piece empty-column" />;
+      return (
+        <div
+          key={index}
+          className="gammon-piece empty-column"
+          onClick={() => handleClick(value)}
+        />
+      );
     } else {
       // column with pieces
       return (
