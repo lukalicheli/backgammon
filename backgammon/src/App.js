@@ -31,9 +31,31 @@ function App() {
     [2, 1, 24],
   ]);
 
+  const [clicked, setClicked] = useState(false);
+  const [pieceIndex, setPieceIndex] = useState(null);
   const handleClick = (value, index) => {
-    console.log(index);
-    console.log(value);
+    if (!clicked) {
+      // set clicked to true and store the index of the piece to be moved
+      setClicked(true);
+      setPieceIndex(value[3]);
+    } else {
+      // get the previous column and the new column
+      const prevColumn = backgammon[pieceIndex];
+      const newColumn = backgammon[value[3]];
+
+      // check if the move is valid
+      if (clicked) {
+        // move the piece
+        const newBackgammon = [...backgammon];
+        newBackgammon[pieceIndex] -= 1;
+        newBackgammon[index][0] += 1;
+        setBackgammon(newBackgammon);
+      }
+
+      // reset clicked
+      setClicked(false);
+      setPieceIndex(null);
+    }
   };
 
   const renderColumn = (value, index) => {
@@ -44,7 +66,7 @@ function App() {
         <div
           key={index}
           className="gammon-piece empty-column"
-          onClick={() => handleClick(value)}
+          onClick={() => handleClick(value, index)}
         />
       );
     } else {
