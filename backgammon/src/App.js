@@ -39,8 +39,9 @@ function App() {
       setPieceIndex(value[2]);
     } else {
       const newIndex = value[2];
-      const updatedBoard = backgammon.splice(index, newIndex);
-      setBackgammon(updatedBoard);
+      console.log(pieceIndex);
+      // const updatedBoard = backgammon.splice(index, newIndex);
+      // setBackgammon(updatedBoard);
       setClicked(false);
     }
   };
