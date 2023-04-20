@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
+import Dice from "./components/dice/Dice";
 
 function App() {
   const [backgammon, setBackgammon] = useState([
@@ -91,6 +92,7 @@ function App() {
           {backgammon.slice(18, 24).map(renderColumn)}
         </div>
       </div>
+      <Dice></Dice>
     </div>
   );
 }
