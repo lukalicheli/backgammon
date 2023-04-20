@@ -5,42 +5,41 @@ import white from "./assets/piece-data/white-piece.png";
 
 function App() {
   const [backgammon, setBackgammon] = useState([
-    [2, 0, 1],
+    [2, 0, 0],
+    [0, -1, 1],
     [0, -1, 2],
     [0, -1, 3],
     [0, -1, 4],
-    [0, -1, 5],
-    [5, 1, 6],
-    [0, -1, 7],
-    [3, 1, 8],
+    [5, 1, 5],
+    [0, -1, 6],
+    [3, 1, 7],
+    [0, -1, 8],
     [0, -1, 9],
     [0, -1, 10],
-    [0, -1, 11],
-    [5, 0, 12],
-    [5, 1, 13],
+    [5, 0, 11],
+    [5, 1, 12],
+    [0, -1, 13],
     [0, -1, 14],
     [0, -1, 15],
-    [0, -1, 16],
-    [3, 0, 17],
-    [0, -1, 18],
-    [5, 0, 19],
+    [3, 0, 16],
+    [0, -1, 17],
+    [5, 0, 18],
+    [0, -1, 19],
     [0, -1, 20],
     [0, -1, 21],
     [0, -1, 22],
-    [0, -1, 23],
-    [2, 1, 24],
+    [2, 1, 23],
   ]);
 
   const [clicked, setClicked] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
   const handleClick = (value, index) => {
-    debugger;
     if (!clicked) {
       setClicked(true);
       setPieceIndex(value[2]);
     } else {
       const newIndex = value[2];
-      const updatedBoard = backgammon.splice(pieceIndex, newIndex);
+      const updatedBoard = backgammon.splice(index, newIndex);
       setBackgammon(updatedBoard);
       setClicked(false);
     }
