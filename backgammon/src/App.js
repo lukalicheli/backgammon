@@ -34,27 +34,15 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
   const handleClick = (value, index) => {
+    debugger;
     if (!clicked) {
-      // set clicked to true and store the index of the piece to be moved
       setClicked(true);
-      setPieceIndex(value[3]);
+      setPieceIndex(value[2]);
     } else {
-      // get the previous column and the new column
-      const prevColumn = backgammon[pieceIndex];
-      const newColumn = backgammon[value[3]];
-
-      // check if the move is valid
-      if (clicked) {
-        // move the piece
-        const newBackgammon = [...backgammon];
-        newBackgammon[pieceIndex] -= 1;
-        newBackgammon[index][0] += 1;
-        setBackgammon(newBackgammon);
-      }
-
-      // reset clicked
+      const newIndex = value[2];
+      const updatedBoard = backgammon.splice(pieceIndex, newIndex);
+      setBackgammon(updatedBoard);
       setClicked(false);
-      setPieceIndex(null);
     }
   };
 
