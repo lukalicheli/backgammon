@@ -39,6 +39,7 @@ function App() {
 
   const handleClick = (value, index) => {
     const amount = value[0];
+    let i = value[2];
     if (!clicked) {
       setClicked(true);
       setPieceIndex(value);
@@ -51,7 +52,10 @@ function App() {
       const index = newBackgammon.findIndex(
         (subArr) => subArr[2] === newSubarray2[2]
       );
+      console.log(index);
       newBackgammon.splice(index, 1, newSubarray2);
+      newBackgammon.splice(i, 1, newSubarray);
+
       setBackgammon(newBackgammon); // update the state with the new copy
       console.log(newBackgammon);
 
