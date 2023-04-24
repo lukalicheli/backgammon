@@ -5,6 +5,7 @@ function Dice() {
   const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
+  const [moves, setMoves] = useState([null, null]);
 
   const rollOne = () => {
     let firstDice = dice[Math.floor(Math.random() * 6)];

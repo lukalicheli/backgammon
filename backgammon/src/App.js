@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
@@ -31,19 +31,31 @@ function App() {
     [0, -1, 22],
     [2, 1, 23],
   ]);
+  // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
 
   const [clicked, setClicked] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
+  const [code, setCode] = useState(null);
+
   const handleClick = (value, index) => {
+    const amount = value[0];
     if (!clicked) {
       setClicked(true);
-      setPieceIndex(value[2]);
+      setPieceIndex(value);
     } else {
-      const newIndex = value[2];
-      console.log(pieceIndex);
-      // const updatedBoard = backgammon.splice(index, newIndex);
-      // setBackgammon(updatedBoard);
-      setClicked(false);
+      const newSet = value[0] + 1;
+      const oldSet = pieceIndex[0] - 1;
+      const newSubarray = [newSet, pieceIndex[1], value[2]]; // the new subarray that will replace the old one
+      const newSubarray2 = [oldSet, pieceIndex[1], pieceIndex[2]]; // the new subarray that will replace the old one
+      const newBackgammon = backgammon.slice(); // create a copy of the state variable
+      const index = newBackgammon.findIndex(
+        (subArr) => subArr[2] === newSubarray2[2]
+      );
+      newBackgammon.splice(index, 1, newSubarray2);
+      setBackgammon(newBackgammon); // update the state with the new copy
+      console.log(newBackgammon);
+
+      setClicked(true);
     }
   };
 
