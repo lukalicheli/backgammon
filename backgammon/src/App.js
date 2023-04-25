@@ -31,13 +31,13 @@ function App() {
     [0, -1, 22],
     [2, 1, 23],
   ]);
-  // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
 
-  const [clicked, setClicked] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
   const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
+  const [possibleMoves, setPossibleMoves] = useState([]);
+  const [turn, setTurn] = useState(0);
 
   const rollOne = () => {
     let firstDice = dice[Math.floor(Math.random() * 6)];
@@ -55,12 +55,13 @@ function App() {
         setSecondDice(imgURL);
       }
     }
+    setPossibleMoves([firstDice, secondDice]);
   };
-
+  // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
   const handleClick = (value, index) => {
+    console.log(possibleMoves);
     let i = value[2];
-    if (!clicked) {
-      setClicked(true);
+    if (turn === 0 && value[1] === 0) {
       setPieceIndex(value);
     } else {
       const newSet = value[0] + 1;
@@ -77,7 +78,7 @@ function App() {
       newBackgammon.splice(i, 1, newSubarray);
       setBackgammon(newBackgammon); // update the state with the new copy
 
-      setClicked(true);
+      setTurn(1);
     }
   };
 
