@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
-import Dice from "./components/dice/Dice";
+import { diceImages } from "./assets/dice-data/DiceImages";
 
 function App() {
   const [backgammon, setBackgammon] = useState([
@@ -35,10 +35,29 @@ function App() {
 
   const [clicked, setClicked] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
-  const [code, setCode] = useState(null);
+  const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
+  const [firstDice, setFirstDice] = useState(null);
+  const [secondDice, setSecondDice] = useState(null);
+
+  const rollOne = () => {
+    let firstDice = dice[Math.floor(Math.random() * 6)];
+    let secondDice = dice[Math.floor(Math.random() * 6)];
+
+    for (let i = 0; i < diceImages.length; i++) {
+      if (diceImages[i].value === firstDice) {
+        const imgURL = diceImages[i].img;
+        setFirstDice(imgURL);
+      }
+    }
+    for (let i = 0; i < diceImages.length; i++) {
+      if (diceImages[i].value === secondDice) {
+        const imgURL = diceImages[i].img;
+        setSecondDice(imgURL);
+      }
+    }
+  };
 
   const handleClick = (value, index) => {
-    const amount = value[0];
     let i = value[2];
     if (!clicked) {
       setClicked(true);
@@ -48,6 +67,7 @@ function App() {
       const oldSet = pieceIndex[0] - 1;
       const newSubarray = [newSet, pieceIndex[1], value[2]]; // the new subarray that will replace the old one
       const newSubarray2 = [oldSet, pieceIndex[1], pieceIndex[2]]; // the new subarray that will replace the old one
+
       const newBackgammon = backgammon.slice(); // create a copy of the state variable
       const index = newBackgammon.findIndex(
         (subArr) => subArr[2] === newSubarray2[2]
@@ -55,9 +75,7 @@ function App() {
       console.log(index);
       newBackgammon.splice(index, 1, newSubarray2);
       newBackgammon.splice(i, 1, newSubarray);
-
       setBackgammon(newBackgammon); // update the state with the new copy
-      console.log(newBackgammon);
 
       setClicked(true);
     }
@@ -108,7 +126,22 @@ function App() {
           {backgammon.slice(18, 24).map(renderColumn)}
         </div>
       </div>
-      <Dice></Dice>
+
+      <div className="dice-container">
+        <button className="roll-button" onClick={rollOne}>
+          Roll
+        </button>
+        <div className="dice one">
+          {firstDice && (
+            <img className="dice-image" src={firstDice} alt="Dice 1" />
+          )}
+        </div>
+        <div className="dice two">
+          {secondDice && (
+            <img className="dice-image" src={secondDice} alt="Dice 2" />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
