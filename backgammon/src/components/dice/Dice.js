@@ -8,24 +8,32 @@ function Dice({
   setPossibleMoves,
   firstDice,
   secondDice,
+  possibleMoves,
 }) {
+  React.useEffect(() => {
+    rollOne();
+  }, []);
   const rollOne = () => {
-    let firstDice = dice[Math.floor(Math.random() * 6)];
-    let secondDice = dice[Math.floor(Math.random() * 6)];
+    if (possibleMoves.length === 0) {
+      // let firstDice = dice[Math.floor(Math.random() * 6)];
+      // let secondDice = dice[Math.floor(Math.random() * 6)];
+      let firstDice = dice[3];
+      let secondDice = dice[1];
 
-    for (let i = 0; i < diceImages.length; i++) {
-      if (diceImages[i].value === firstDice) {
-        const imgURL = diceImages[i].img;
-        setFirstDice(imgURL);
+      for (let i = 0; i < diceImages.length; i++) {
+        if (diceImages[i].value === firstDice) {
+          const imgURL = diceImages[i].img;
+          setFirstDice(imgURL);
+        }
       }
-    }
-    for (let i = 0; i < diceImages.length; i++) {
-      if (diceImages[i].value === secondDice) {
-        const imgURL = diceImages[i].img;
-        setSecondDice(imgURL);
+      for (let i = 0; i < diceImages.length; i++) {
+        if (diceImages[i].value === secondDice) {
+          const imgURL = diceImages[i].img;
+          setSecondDice(imgURL);
+        }
       }
+      setPossibleMoves([firstDice, secondDice]);
     }
-    setPossibleMoves([firstDice, secondDice]);
   };
 
   return (

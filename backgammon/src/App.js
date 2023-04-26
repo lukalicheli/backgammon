@@ -40,6 +40,7 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
+  const [moves, setMoves] = useState(null);
 
   const checkMove = (value) => {
     const difference = value[2] - pieceIndex[2];
@@ -54,15 +55,20 @@ function App() {
   const handleClick = (value, index) => {
     debugger;
     let i = value[2];
-    if (turn === 0 && value[1] === 0 && !clicked) {
+    if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
       setPieceIndex(value);
       setClicked(true);
     } else if (turn === 0 && checkMove(value) && clicked) {
       const newSet = value[0] + 1;
       const oldSet = pieceIndex[0] - 1;
       const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
-      const newSubarray2 = [oldSet, pieceIndex[1], pieceIndex[2]]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
-      const newBoard = [...backgammon];
+      const newSubarray2 = [
+        oldSet,
+        oldSet === 0 ? -1 : pieceIndex[1],
+        pieceIndex[2],
+      ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
+      // const newBoard = [...backgammon];
+      const newBoard = JSON.parse(JSON.stringify(backgammon));
       const index = value[2];
       const index2 = pieceIndex[2];
       newBoard[index] = newSubarray;
@@ -71,6 +77,7 @@ function App() {
       const updatedPossibleMoves = possibleMoves.filter(
         (element) => element !== move
       );
+
       setPossibleMoves(updatedPossibleMoves);
       setClicked(false);
       setBackgammon(newBoard);
@@ -99,7 +106,9 @@ function App() {
             <img
               key={i}
               className={`gammon-piece ${value}`}
-              onClick={() => handleClick(value, index)}
+              onClick={() => {
+                handleClick(value, index);
+              }}
               src={pieceImage}
               alt="piece"
             />
@@ -133,6 +142,7 @@ function App() {
         setFirstDice={setFirstDice}
         setSecondDice={setSecondDice}
         setPossibleMoves={setPossibleMoves}
+        possibleMoves={possibleMoves}
       />
     </div>
   );
