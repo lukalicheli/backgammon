@@ -39,13 +39,10 @@ function App() {
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
-  const [rolled, setRolled] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const checkMove = (value) => {
     const difference = value[2] - pieceIndex[2];
-    console.log(difference);
-    console.log(value[2]);
-    console.log(pieceIndex);
     if (difference === possibleMoves[0] || difference === possibleMoves[1]) {
       return true;
     } else {
@@ -53,27 +50,32 @@ function App() {
     }
   };
 
-  // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
+  // value = [how many pieces in each slot, 0=white pi ece 1=brown piece, position on board starting from 0 like an array count]
   const handleClick = (value, index) => {
     debugger;
     let i = value[2];
-    if (turn === 0 && value[1] === 0) {
+    if (turn === 0 && value[1] === 0 && !clicked) {
       setPieceIndex(value);
-    } else if (turn === 0 && checkMove(value)) {
+      setClicked(true);
+    } else if (turn === 0 && checkMove(value) && clicked) {
       const newSet = value[0] + 1;
       const oldSet = pieceIndex[0] - 1;
-      const newSubarray = [newSet, pieceIndex[1], value[2]]; // the new subarray that will replace the old one
-      const newSubarray2 = [oldSet, pieceIndex[1], pieceIndex[2]]; // the new subarray that will replace the old one
-
-      const newBackgammon = backgammon.slice(); // create a copy of the state variable
-      const index = newBackgammon.findIndex(
-        (subArr) => subArr[2] === newSubarray2[2]
+      const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
+      const newSubarray2 = [oldSet, pieceIndex[1], pieceIndex[2]]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
+      const newBoard = [...backgammon];
+      const index = value[2];
+      const index2 = pieceIndex[2];
+      newBoard[index] = newSubarray;
+      newBoard[index2] = newSubarray2;
+      const move = value[2] - pieceIndex[2];
+      const updatedPossibleMoves = possibleMoves.filter(
+        (element) => element !== move
       );
-
-      newBackgammon.splice(index, 1, newSubarray2);
-      newBackgammon.splice(i, 1, newSubarray);
-      setBackgammon(newBackgammon); // update the state with the new copy
-
+      setPossibleMoves(updatedPossibleMoves);
+      setClicked(false);
+      setBackgammon(newBoard);
+    } else if (possibleMoves.length === 0) {
+      console.log("no More");
       setTurn(1);
     }
   };
