@@ -58,7 +58,7 @@ function App() {
     if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
       setPieceIndex(value);
       setClicked(true);
-    } else if (turn === 0 && checkMove(value) && clicked) {
+    } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
       const newSet = value[0] + 1;
       const oldSet = pieceIndex[0] - 1;
       const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
@@ -74,10 +74,11 @@ function App() {
       newBoard[index] = newSubarray;
       newBoard[index2] = newSubarray2;
       const move = value[2] - pieceIndex[2];
-      const updatedPossibleMoves = possibleMoves.filter(
-        (element) => element !== move
-      );
-
+      const updatedPossibleMoves = [...possibleMoves];
+      const indexToRemove = updatedPossibleMoves.indexOf(move);
+      if (indexToRemove !== -1) {
+        updatedPossibleMoves.splice(indexToRemove, 1);
+      }
       setPossibleMoves(updatedPossibleMoves);
       setClicked(false);
       setBackgammon(newBoard);

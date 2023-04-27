@@ -11,14 +11,14 @@ function Dice({
   possibleMoves,
 }) {
   React.useEffect(() => {
-    // rollOne();
+    rollOne();
   }, []);
   const rollOne = () => {
     if (possibleMoves.length === 0) {
-      let firstDice = dice[Math.floor(Math.random() * 6)];
-      let secondDice = dice[Math.floor(Math.random() * 6)];
-      // let firstDice = dice[3];
-      // let secondDice = dice[1];
+      // let firstDice = dice[Math.floor(Math.random() * 6)];
+      // let secondDice = dice[Math.floor(Math.random() * 6)];
+      let firstDice = dice[2];
+      let secondDice = dice[2];
 
       for (let i = 0; i < diceImages.length; i++) {
         if (diceImages[i].value === firstDice) {
