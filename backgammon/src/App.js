@@ -88,7 +88,7 @@ function App() {
   };
 
   const renderColumn = (value, index) => {
-    const pieceImage = value[1] === 0 ? white s: value[1] === 1 ? brown : null;
+    const pieceImage = value[1] === 0 ? white : value[1] === 1 ? brown : null;
     if (value[0] === 0 && value[1] === -1) {
       // empty column
       return (
