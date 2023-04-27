@@ -32,7 +32,11 @@ function Dice({
           setSecondDice(imgURL);
         }
       }
-      setPossibleMoves([firstDice, secondDice]);
+      if (firstDice === secondDice) {
+        setPossibleMoves([firstDice, firstDice, secondDice, secondDice]);
+      } else {
+        setPossibleMoves([firstDice, secondDice]);
+      }
     }
   };
 
