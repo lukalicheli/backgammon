@@ -15,9 +15,12 @@ function Dice({
   React.useEffect(() => {
     // rollOne();
   }, []);
+
   const rollOne = () => {
+    // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
     setClicked(false);
+
     if (possibleMoves.length === 0) {
       let firstDice = dice[Math.floor(Math.random() * 6)];
       let secondDice = dice[Math.floor(Math.random() * 6)];
@@ -25,17 +28,21 @@ function Dice({
       // let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
+        //Generates the images based on first dice value
         if (diceImages[i].value === firstDice) {
           const imgURL = diceImages[i].img;
           setFirstDice(imgURL);
         }
       }
       for (let i = 0; i < diceImages.length; i++) {
+        //Generates the images based on second dice value
         if (diceImages[i].value === secondDice) {
           const imgURL = diceImages[i].img;
           setSecondDice(imgURL);
         }
       }
+
+      // Incase doubles are rolled
       if (firstDice === secondDice) {
         setPossibleMoves([firstDice, firstDice, secondDice, secondDice]);
       } else {

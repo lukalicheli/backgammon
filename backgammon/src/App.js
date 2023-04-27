@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
@@ -6,8 +6,15 @@ import { diceImages } from "./assets/dice-data/DiceImages";
 import Dice from "./components/dice/Dice";
 
 function App() {
+  const [pieceIndex, setPieceIndex] = useState(null);
+  const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
+  const [firstDice, setFirstDice] = useState(null);
+  const [secondDice, setSecondDice] = useState(null);
+  const [possibleMoves, setPossibleMoves] = useState([]);
+  const [turn, setTurn] = useState(0);
+  const [clicked, setClicked] = useState(false);
   const [backgammon, setBackgammon] = useState([
-    [2, 0, 0],
+    [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
     [0, -1, 1],
     [0, -1, 2],
     [0, -1, 3],
@@ -33,15 +40,8 @@ function App() {
     [2, 1, 23],
   ]);
 
-  const [pieceIndex, setPieceIndex] = useState(null);
-  const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
-  const [firstDice, setFirstDice] = useState(null);
-  const [secondDice, setSecondDice] = useState(null);
-  const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(0);
-  const [clicked, setClicked] = useState(false);
-  const [moves, setMoves] = useState(null);
-
+  // Checks if the move is valid.
+  // Compares the index difference of the two columns you clicked with at least one value in possibleMoves state
   const checkMove = (value) => {
     if (turn === 0) {
       const difference = value[2] - pieceIndex[2];
@@ -60,8 +60,9 @@ function App() {
     }
   };
 
-  // value = [how many pieces in each slot, 0=white pi ece 1=brown piece, position on board starting from 0 like an array count]
+  // This function moves the pieces and ends the turn when there's no more available moves
   const handleClick = (value, index) => {
+    // If it's player 1's turn
     if (turn === 0) {
       if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
@@ -69,18 +70,18 @@ function App() {
       } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
         const newSet = value[0] + 1;
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
+        const newSubarray = [newSet, pieceIndex[1], value[2]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
           pieceIndex[2],
-        ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
-        // const newBoard = [...backgammon];
+        ];
         const newBoard = JSON.parse(JSON.stringify(backgammon));
         const index = value[2];
         const index2 = pieceIndex[2];
         newBoard[index] = newSubarray;
         newBoard[index2] = newSubarray2;
+
         const move = value[2] - pieceIndex[2];
         const updatedPossibleMoves = [...possibleMoves];
         const indexToRemove = updatedPossibleMoves.indexOf(move);
@@ -93,9 +94,10 @@ function App() {
       } else if (possibleMoves.length === 0) {
         console.log("no More");
         setTurn(1);
-        // setTurn(turn === 0 ? 1 : 0);
       }
     }
+
+    //If it's second player's turn
     if (turn === 1) {
       debugger;
       if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
@@ -104,13 +106,12 @@ function App() {
       } else if (turn === 1 && checkMove(value) && clicked && value[1] !== 0) {
         const newSet = value[0] + 1;
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
+        const newSubarray = [newSet, pieceIndex[1], value[2]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
           pieceIndex[2],
-        ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
-        // const newBoard = [...backgammon];
+        ];
         const newBoard = JSON.parse(JSON.stringify(backgammon));
         const index = value[2];
         const index2 = pieceIndex[2];
@@ -128,10 +129,11 @@ function App() {
       } else if (possibleMoves.length === 0) {
         console.log("no More");
         setTurn(0);
-        // setTurn(turn === 0 ? 1 : 0);
       }
     }
   };
+
+  // Makes the columns for the game
   const renderColumn = (value, index) => {
     const pieceImage = value[1] === 0 ? white : value[1] === 1 ? brown : null;
     if (value[0] === 0 || value[1] === -1) {
