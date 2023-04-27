@@ -53,44 +53,79 @@ function App() {
 
   // value = [how many pieces in each slot, 0=white pi ece 1=brown piece, position on board starting from 0 like an array count]
   const handleClick = (value, index) => {
-    debugger;
-    let i = value[2];
-    if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
-      setPieceIndex(value);
-      setClicked(true);
-    } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
-      const newSet = value[0] + 1;
-      const oldSet = pieceIndex[0] - 1;
-      const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
-      const newSubarray2 = [
-        oldSet,
-        oldSet === 0 ? -1 : pieceIndex[1],
-        pieceIndex[2],
-      ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
-      // const newBoard = [...backgammon];
-      const newBoard = JSON.parse(JSON.stringify(backgammon));
-      const index = value[2];
-      const index2 = pieceIndex[2];
-      newBoard[index] = newSubarray;
-      newBoard[index2] = newSubarray2;
-      const move = value[2] - pieceIndex[2];
-      const updatedPossibleMoves = [...possibleMoves];
-      const indexToRemove = updatedPossibleMoves.indexOf(move);
-      if (indexToRemove !== -1) {
-        updatedPossibleMoves.splice(indexToRemove, 1);
+    if (turn === 0) {
+      if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
+        setPieceIndex(value);
+        setClicked(true);
+      } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
+        const newSet = value[0] + 1;
+        const oldSet = pieceIndex[0] - 1;
+        const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
+        const newSubarray2 = [
+          oldSet,
+          oldSet === 0 ? -1 : pieceIndex[1],
+          pieceIndex[2],
+        ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
+        // const newBoard = [...backgammon];
+        const newBoard = JSON.parse(JSON.stringify(backgammon));
+        const index = value[2];
+        const index2 = pieceIndex[2];
+        newBoard[index] = newSubarray;
+        newBoard[index2] = newSubarray2;
+        const move = value[2] - pieceIndex[2];
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(move);
+        if (indexToRemove !== -1) {
+          updatedPossibleMoves.splice(indexToRemove, 1);
+        }
+        setPossibleMoves(updatedPossibleMoves);
+        setClicked(false);
+        setBackgammon(newBoard);
+      } else if (possibleMoves.length === 0) {
+        console.log("no More");
+        setTurn(1);
+        // setTurn(turn === 0 ? 1 : 0);
       }
-      setPossibleMoves(updatedPossibleMoves);
-      setClicked(false);
-      setBackgammon(newBoard);
-    } else if (possibleMoves.length === 0) {
-      console.log("no More");
-      setTurn(1);
+    }
+    if (turn === 1) {
+      debugger;
+      if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
+        setPieceIndex(value);
+        setClicked(true);
+      } else if (turn === 1 && checkMove(value) && clicked && value[1] !== 0) {
+        const newSet = value[0] + 1;
+        const oldSet = pieceIndex[0] - 1;
+        const newSubarray = [newSet, pieceIndex[1], value[2]]; // [add one piece, make the column be equal to whatever piece is moving, at what index]
+        const newSubarray2 = [
+          oldSet,
+          oldSet === 0 ? -1 : pieceIndex[1],
+          pieceIndex[2],
+        ]; //[minus one piece, make the column equal to whatever piece is moving, at what index]
+        // const newBoard = [...backgammon];
+        const newBoard = JSON.parse(JSON.stringify(backgammon));
+        const index = value[2];
+        const index2 = pieceIndex[2];
+        newBoard[index] = newSubarray;
+        newBoard[index2] = newSubarray2;
+        const move = value[2] - pieceIndex[2];
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(move);
+        if (indexToRemove !== -1) {
+          updatedPossibleMoves.splice(indexToRemove, 1);
+        }
+        setPossibleMoves(updatedPossibleMoves);
+        setClicked(false);
+        setBackgammon(newBoard);
+      } else if (possibleMoves.length === 0) {
+        console.log("no More");
+        setTurn(0);
+        // setTurn(turn === 0 ? 1 : 0);
+      }
     }
   };
-
   const renderColumn = (value, index) => {
     const pieceImage = value[1] === 0 ? white : value[1] === 1 ? brown : null;
-    if (value[0] === 0 && value[1] === -1) {
+    if (value[0] === 0 || value[1] === -1) {
       // empty column
       return (
         <div
@@ -144,6 +179,8 @@ function App() {
         setSecondDice={setSecondDice}
         setPossibleMoves={setPossibleMoves}
         possibleMoves={possibleMoves}
+        setPieceIndex={setPieceIndex}
+        setClicked={setClicked}
       />
     </div>
   );

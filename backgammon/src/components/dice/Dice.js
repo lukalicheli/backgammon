@@ -9,16 +9,20 @@ function Dice({
   firstDice,
   secondDice,
   possibleMoves,
+  setPieceIndex,
+  setClicked,
 }) {
   React.useEffect(() => {
-    rollOne();
+    // rollOne();
   }, []);
   const rollOne = () => {
+    setPieceIndex(null);
+    setClicked(false);
     if (possibleMoves.length === 0) {
-      // let firstDice = dice[Math.floor(Math.random() * 6)];
-      // let secondDice = dice[Math.floor(Math.random() * 6)];
-      let firstDice = dice[2];
-      let secondDice = dice[2];
+      let firstDice = dice[Math.floor(Math.random() * 6)];
+      let secondDice = dice[Math.floor(Math.random() * 6)];
+      // let firstDice = dice[2];
+      // let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
         if (diceImages[i].value === firstDice) {
