@@ -43,11 +43,20 @@ function App() {
   const [moves, setMoves] = useState(null);
 
   const checkMove = (value) => {
-    const difference = value[2] - pieceIndex[2];
-    if (difference === possibleMoves[0] || difference === possibleMoves[1]) {
-      return true;
-    } else {
-      return false;
+    if (turn === 0) {
+      const difference = value[2] - pieceIndex[2];
+      if (difference === possibleMoves[0] || difference === possibleMoves[1]) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (turn === 1) {
+      const difference = (value[2] - pieceIndex[2]) * -1;
+      if (difference === possibleMoves[0] || difference === possibleMoves[1]) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
 
@@ -107,7 +116,7 @@ function App() {
         const index2 = pieceIndex[2];
         newBoard[index] = newSubarray;
         newBoard[index2] = newSubarray2;
-        const move = value[2] - pieceIndex[2];
+        const move = (value[2] - pieceIndex[2]) * -1;
         const updatedPossibleMoves = [...possibleMoves];
         const indexToRemove = updatedPossibleMoves.indexOf(move);
         if (indexToRemove !== -1) {
