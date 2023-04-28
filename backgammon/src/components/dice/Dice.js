@@ -11,6 +11,9 @@ function Dice({
   possibleMoves,
   setPieceIndex,
   setClicked,
+  backgammon,
+  killPileOne,
+  setKillPileOne,
 }) {
   React.useEffect(() => {
     // rollOne();
@@ -20,7 +23,7 @@ function Dice({
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
     setClicked(false);
-
+    debugger;
     if (possibleMoves.length === 0) {
       let firstDice = dice[Math.floor(Math.random() * 6)];
       let secondDice = dice[Math.floor(Math.random() * 6)];
@@ -48,7 +51,33 @@ function Dice({
       } else {
         setPossibleMoves([firstDice, secondDice]);
       }
+
+      let firstIndex = firstDice - 1;
+      let secondIndex = secondDice - 1;
+
+      verifyRevival(firstIndex, secondIndex);
     }
+
+    const verifyRevival = (firstIndex, secondIndex) => {
+      // If the revival occurs on an empty or friendly piece
+      if (
+        (backgammon[firstIndex][1] === 0 ||
+          backgammon[secondIndex][1] === -1 ||
+          (backgammon[firstIndex][1] === 1 &&
+            backgammon[firstIndex][0] === 1) ||
+          (backgammon[secondIndex][1] === 1 &&
+            backgammon[secondIndex][0] === 1)) &&
+        killPileOne > 0
+      ) {
+        console.log("available");
+        // const updatedKillPile = killPileOne - 1;
+        // setKillPileOne(updatedKillPile);
+
+        //If the revival occurs with an enemy piece
+      } else {
+        console.log("not available");
+      }
+    };
   };
 
   return (

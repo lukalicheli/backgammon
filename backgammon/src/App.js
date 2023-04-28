@@ -281,6 +281,9 @@ function App() {
         possibleMoves={possibleMoves}
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
+        backgammon={backgammon}
+        killPileOne={killPileOne}
+        setKillPileOne={setKillPileOne}
       />
       <KilledPieces
         backgammon={backgammon}
@@ -293,6 +296,7 @@ function App() {
         pieceIndex={pieceIndex}
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
+        possibleMoves={possibleMoves}
       ></KilledPieces>
     </div>
   );

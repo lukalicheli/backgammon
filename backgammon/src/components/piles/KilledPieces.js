@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import white from "../../assets/piece-data/white-piece.png";
 
 function KilledPieces({
@@ -12,10 +12,15 @@ function KilledPieces({
   pieceIndex,
   setPieceIndex,
   setClicked,
+  possibleMoves,
 }) {
-  const handleRevive = (index) => {
-    console.log(index);
+  const handleRevive = (i) => {
+    const board = [...backgammon];
+    const availableSpot = board.slice(0, 6);
+
+    let compareDiceValues = [...possibleMoves];
   };
+
   const killedPieces = [];
 
   for (let i = 0; i < killPileOne; i++) {
