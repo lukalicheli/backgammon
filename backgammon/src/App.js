@@ -4,6 +4,7 @@ import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
 import { diceImages } from "./assets/dice-data/DiceImages";
 import Dice from "./components/dice/Dice";
+import KilledPieces from "./components/piles/KilledPieces";
 
 function App() {
   const [pieceIndex, setPieceIndex] = useState(null);
@@ -281,6 +282,18 @@ function App() {
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
       />
+      <KilledPieces
+        backgammon={backgammon}
+        killPileOne={killPileOne}
+        killPileTwo={killPileTwo}
+        setKillPileOne={setKillPileOne}
+        setKillPileTwo={setKillPileTwo}
+        turn={turn}
+        setTurn={setTurn}
+        pieceIndex={pieceIndex}
+        setPieceIndex={setPieceIndex}
+        setClicked={setClicked}
+      ></KilledPieces>
     </div>
   );
 }
