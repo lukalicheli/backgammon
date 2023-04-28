@@ -13,8 +13,8 @@ function KilledPieces({
   setPieceIndex,
   setClicked,
 }) {
-  const handleRevive = (index, value) => {
-    console.log("hello");
+  const handleRevive = (index) => {
+    console.log(index);
   };
   const killedPieces = [];
 
@@ -25,6 +25,7 @@ function KilledPieces({
         src={white}
         key={i}
         alt="gammon piece"
+        onClick={() => handleRevive(i)}
       ></img>
     );
   }
