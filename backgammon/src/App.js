@@ -13,7 +13,8 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPile, setKillPile] = useState([]);
+  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(0);
   const [backgammon, setBackgammon] = useState([
     [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
     [0, -1, 1],
@@ -63,18 +64,26 @@ function App() {
 
   const killPiece = (value) => {
     //if whatever piece you hit has value[0] ===1 AND value[1] ===1, then the piece can be updated
-    if (value[0] === 1 && value[1] === 1) {
-      return true;
-    } else {
-      return false;
+
+    if (turn === 0) {
+      if (value[0] === 1 && value[1] === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (turn === 1) {
+      if (value[0] === 1 && value[1] === 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
 
   // This function moves the pieces and ends the turn when there's no more available moves
   const handleClick = (value, index) => {
     // If it's player 1's turn
-    if (turn === 0) {
-      debugger;
+    if (turn === 0 && killPileOne === 0) {
       if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
         setClicked(true);
@@ -105,6 +114,8 @@ function App() {
 
         //Incase player 1 kills player 2's piece
       } else if (killPiece(value) && clicked) {
+        const newKillPile = killPileTwo + 1;
+        setKillPileTwo(newKillPile);
         const newSet = value[0];
         const oldSet = pieceIndex[0] - 1;
         const newSubarray = [newSet, pieceIndex[1], value[2]];
@@ -135,7 +146,7 @@ function App() {
     }
 
     //If it's second player's turn
-    if (turn === 1) {
+    if (turn === 1 && killPileTwo === 0) {
       debugger;
       if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
@@ -163,10 +174,50 @@ function App() {
         setPossibleMoves(updatedPossibleMoves);
         setClicked(false);
         setBackgammon(newBoard);
+      } else if (killPiece(value) && clicked) {
+        const newKillPile = killPileOne + 1;
+        setKillPileOne(newKillPile);
+        const newSet = value[0];
+        const oldSet = pieceIndex[0] - 1;
+        const newSubarray = [newSet, pieceIndex[1], value[2]];
+        const newSubarray2 = [
+          oldSet,
+          oldSet === 0 ? -1 : pieceIndex[1],
+          pieceIndex[2],
+        ];
+        const newBoard = JSON.parse(JSON.stringify(backgammon));
+        const index = value[2];
+        const index2 = pieceIndex[2];
+        newBoard[index] = newSubarray;
+        newBoard[index2] = newSubarray2;
+
+        const move = (value[2] - pieceIndex[2]) * -1;
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(move);
+        if (indexToRemove !== -1) {
+          updatedPossibleMoves.splice(indexToRemove, 1);
+        }
+        setPossibleMoves(updatedPossibleMoves);
+        setClicked(false);
+        setBackgammon(newBoard);
       } else if (possibleMoves.length === 0) {
         console.log("no More");
         setTurn(0);
       }
+    } else if (turn === 1 && killPileTwo > 0) {
+      // for(let i=18; i<23; i++) {
+      //   let emptyIndex = 0;
+      //   let newValue =0;
+      //   if(backgammon[i][1] === 1 || backgammon[i][1] === -1 ) {
+      //    emptyIndex = backgammon[i][2];
+      //     const newBoard = [...board];
+      //   } else {
+      //     setTurn(0);
+      //     setClicked(false);
+      //     setPossibleMoves([]);
+      //   }
+      // }
+      console.log("here");
     }
   };
 
