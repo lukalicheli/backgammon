@@ -15,6 +15,7 @@ function Dice({
   killPileOne,
   setKillPileOne,
   setTurn,
+  turn,
 }) {
   React.useEffect(() => {
     // rollOne();
@@ -26,10 +27,10 @@ function Dice({
     setClicked(false);
 
     if (possibleMoves.length === 0) {
-      // let firstDice = dice[Math.floor(Math.random() * 6)];
-      // let secondDice = dice[Math.floor(Math.random() * 6)];
-      let firstDice = dice[5];
-      let secondDice = dice[3];
+      let firstDice = dice[Math.floor(Math.random() * 6)];
+      let secondDice = dice[Math.floor(Math.random() * 6)];
+      // let firstDice = dice[5];
+      // let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
         //Generates the images based on first dice value
@@ -55,7 +56,7 @@ function Dice({
 
       let firstIndex = firstDice - 1;
       let secondIndex = secondDice - 1;
-      if (killPileOne > 0) {
+      if (killPileOne > 0 && turn === 0) {
         verifyRevival(firstIndex, secondIndex);
       }
     }
@@ -69,7 +70,9 @@ function Dice({
     // If the revival occurs on an empty or friendly piece
     if (
       backgammon[firstIndex][1] === 0 || //These first two are to check
-      backgammon[firstIndex][1] === -1 // that it's empty space
+      backgammon[firstIndex][1] === -1 ||
+      backgammon[secondIndex][1] === 0 ||
+      backgammon[secondIndex][1] === -1 // that it's empty space
     ) {
       const elements = document.getElementsByClassName("killed-piece");
       for (let i = 0; i < elements.length; i++) {
@@ -88,7 +91,7 @@ function Dice({
       (backgammon[firstIndex][1] === 1 && backgammon[firstIndex][0] === 1) || // If an enemy piece is there but
       (backgammon[secondIndex][1] === 1 && backgammon[secondIndex][0] === 1)
     ) {
-      console.log("whoops");
+      return 1;
       //Run some code that takes care of updating the [1] at that specified index. refrence to it
     } else {
       setTurn(1);

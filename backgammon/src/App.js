@@ -285,6 +285,7 @@ function App() {
         killPileOne={killPileOne}
         setKillPileOne={setKillPileOne}
         setTurn={setTurn}
+        turn={turn}
       />
       <KilledPieces
         backgammon={backgammon}
