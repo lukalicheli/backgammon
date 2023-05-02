@@ -54,7 +54,7 @@ function Dice({
 
       let firstIndex = firstDice - 1;
       let secondIndex = secondDice - 1;
-      a;
+
       verifyRevival(firstIndex, secondIndex);
     }
 
