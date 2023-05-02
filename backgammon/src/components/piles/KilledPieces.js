@@ -23,6 +23,16 @@ function KilledPieces({
 
   const killedPieces = [];
 
+  if (killedPieces.length > 0) {
+    for (let i = 0; i < killedPieces.length; i++) {
+      if (killedPieces.length === 1) {
+      } else if (killedPieces.length === 2) {
+        const firstIndex = killedPieces[0] - 1;
+        const secondIndex = killedPieces[1] - 1;
+      }
+    }
+  }
+
   for (let i = 0; i < killPileOne; i++) {
     killedPieces.push(
       <img

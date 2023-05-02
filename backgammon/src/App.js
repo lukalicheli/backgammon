@@ -230,7 +230,7 @@ function App() {
       return (
         <div
           key={index}
-          className="gammon-piece empty-column"
+          className="gammon-piece"
           onClick={() => handleClick(value, index)}
         />
       );

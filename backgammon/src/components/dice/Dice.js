@@ -54,30 +54,30 @@ function Dice({
 
       let firstIndex = firstDice - 1;
       let secondIndex = secondDice - 1;
-
-      verifyRevival(firstIndex, secondIndex);
-    }
-
-    const verifyRevival = (firstIndex, secondIndex) => {
-      // If the revival occurs on an empty or friendly piece
-      if (
-        (backgammon[firstIndex][1] === 0 ||
-          backgammon[secondIndex][1] === -1 ||
-          (backgammon[firstIndex][1] === 1 &&
-            backgammon[firstIndex][0] === 1) ||
-          (backgammon[secondIndex][1] === 1 &&
-            backgammon[secondIndex][0] === 1)) &&
-        killPileOne > 0
-      ) {
-        console.log("available");
-        // const updatedKillPile = killPileOne - 1;
-        // setKillPileOne(updatedKillPile);
-
-        //If the revival occurs with an enemy piece
-      } else {
-        console.log("not available");
+      if (firstIndex !== null) {
+        verifyRevival(firstIndex, secondIndex);
       }
-    };
+    }
+  };
+
+  const verifyRevival = (firstIndex, secondIndex) => {
+    // If the revival occurs on an empty or friendly piece
+    if (
+      (backgammon[firstIndex][1] === 0 || //These first two are to check
+        backgammon[secondIndex][1] === -1 || // that it's empty space
+        (backgammon[firstIndex][1] === 1 && backgammon[firstIndex][0] === 1) || // If an enemy piece is there but
+        (backgammon[secondIndex][1] === 1 && // there is only one piece.
+          backgammon[secondIndex][0] === 1)) &&
+      killPileOne > 0
+    ) {
+      console.log("True");
+      return true;
+
+      //If the revival occurs with an enemy piece
+    } else {
+      console.log("False");
+      return false;
+    }
   };
 
   return (
