@@ -5,6 +5,7 @@ import white from "./assets/piece-data/white-piece.png";
 import { diceImages } from "./assets/dice-data/DiceImages";
 import Dice from "./components/dice/Dice";
 import KilledPieces from "./components/piles/KilledPieces";
+import styled from "styled-components";
 
 function App() {
   const [pieceIndex, setPieceIndex] = useState(null);
@@ -14,7 +15,7 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileOne, setKillPileOne] = useState(3);
   const [killPileTwo, setKillPileTwo] = useState(0);
   const [backgammon, setBackgammon] = useState([
     [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
@@ -148,7 +149,6 @@ function App() {
 
     //If it's second player's turn
     if (turn === 1 && killPileTwo === 0) {
-      debugger;
       if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
         setClicked(true);
@@ -284,6 +284,7 @@ function App() {
         backgammon={backgammon}
         killPileOne={killPileOne}
         setKillPileOne={setKillPileOne}
+        setTurn={setTurn}
       />
       <KilledPieces
         backgammon={backgammon}
@@ -301,5 +302,19 @@ function App() {
     </div>
   );
 }
+
+const Column = styled.div`
+  display: flex;
+  width: 50px;
+  height: 100%;
+  margin: -10px 0px -10px 0px;
+`;
+
+const Image = styled.img`
+  display: flex;
+  width: 50px;
+  height: 100%;
+  margin: -10px 0px -10px 0px;
+`;
 
 export default App;

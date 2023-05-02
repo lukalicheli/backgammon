@@ -14,6 +14,7 @@ function Dice({
   backgammon,
   killPileOne,
   setKillPileOne,
+  setTurn,
 }) {
   React.useEffect(() => {
     // rollOne();
@@ -23,12 +24,12 @@ function Dice({
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
     setClicked(false);
-    debugger;
+
     if (possibleMoves.length === 0) {
-      let firstDice = dice[Math.floor(Math.random() * 6)];
-      let secondDice = dice[Math.floor(Math.random() * 6)];
-      // let firstDice = dice[2];
-      // let secondDice = dice[3];
+      // let firstDice = dice[Math.floor(Math.random() * 6)];
+      // let secondDice = dice[Math.floor(Math.random() * 6)];
+      let firstDice = dice[5];
+      let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
         //Generates the images based on first dice value
@@ -54,28 +55,46 @@ function Dice({
 
       let firstIndex = firstDice - 1;
       let secondIndex = secondDice - 1;
-      if (firstIndex !== null) {
+      if (killPileOne > 0) {
         verifyRevival(firstIndex, secondIndex);
       }
     }
   };
 
   const verifyRevival = (firstIndex, secondIndex) => {
+    debugger;
+    console.log(firstIndex, secondIndex);
+    console.log(backgammon[firstIndex][1]);
+    console.log(backgammon[firstIndex][0]);
     // If the revival occurs on an empty or friendly piece
     if (
-      (backgammon[firstIndex][1] === 0 || //These first two are to check
-        backgammon[secondIndex][1] === -1 || // that it's empty space
-        (backgammon[firstIndex][1] === 1 && backgammon[firstIndex][0] === 1) || // If an enemy piece is there but
-        (backgammon[secondIndex][1] === 1 && // there is only one piece.
-          backgammon[secondIndex][0] === 1)) &&
-      killPileOne > 0
+      backgammon[firstIndex][1] === 0 || //These first two are to check
+      backgammon[firstIndex][1] === -1 // that it's empty space
     ) {
+      const elements = document.getElementsByClassName("killed-piece");
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.border = "2px solid yellow";
+        elements[i].style.borderRadius = "50%";
+        elements[i].style.width = "50px";
+        elements[i].style.height = "50px";
+        elements[i].style.padding = "0px";
+      }
+
       console.log("True");
       return true;
 
       //If the revival occurs with an enemy piece
+    } else if (
+      (backgammon[firstIndex][1] === 1 && backgammon[firstIndex][0] === 1) || // If an enemy piece is there but
+      (backgammon[secondIndex][1] === 1 && backgammon[secondIndex][0] === 1)
+    ) {
+      console.log("whoops");
+      //Run some code that takes care of updating the [1] at that specified index. refrence to it
     } else {
-      console.log("False");
+      setTurn(1);
+      setPossibleMoves([]);
+      alert("false");
+
       return false;
     }
   };
