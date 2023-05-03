@@ -148,6 +148,35 @@ function App() {
       }
     }
 
+    if (
+      turn === 0 &&
+      revived !== false &&
+      killPileOne > 0 &&
+      possibleMoves.length > 0
+    ) {
+      const possibleIndexOne = possibleMoves[0] - 1;
+      const possibleIndexTwo = possibleMoves[1] - 1;
+
+      if (index === possibleIndexOne || index === possibleIndexTwo) {
+        console.log(index);
+        const newKillPile = killPileOne - 1;
+        setKillPileOne(newKillPile);
+        const newBoard = [...backgammon];
+        newBoard[index][0] += 1;
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(index);
+
+        updatedPossibleMoves.splice(indexToRemove, 1);
+        setPossibleMoves(updatedPossibleMoves);
+        if (backgammon[index][1] === -1) {
+          newBoard[index][1] = 0;
+          setBackgammon(newBoard);
+        }
+      } else {
+        console.log("error");
+      }
+    }
+
     //If it's second player's turn
     if (turn === 1 && killPileTwo === 0) {
       if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
@@ -304,6 +333,8 @@ function App() {
         possibleMoves={possibleMoves}
         revived={revived}
         setRevived={setRevived}
+        clicked={clicked}
+        handleClick={handleClick}
       ></KilledPieces>
     </div>
   );

@@ -1,15 +1,30 @@
 import React, { useEffect } from "react";
 import white from "../../assets/piece-data/white-piece.png";
 
-function KilledPieces({ killPileOne, revived, setRevived }) {
+function KilledPieces({
+  killPileOne,
+  setKillPileOne,
+  revived,
+  setRevived,
+  clicked,
+  setClicked,
+  handleClick,
+  backgammon,
+}) {
   debugger;
   const handleRevive = () => {
-    if (revived === true) {
+    if (revived === true && !clicked) {
+      setClicked(true);
       console.log("revived is true");
     } else if (revived === 1) {
+      setClicked(true);
       console.log("revived is 1");
     } else {
       console.log("revived is false");
+    }
+
+    if (revived === true && clicked) {
+      handleClick();
     }
   };
 

@@ -29,10 +29,10 @@ function Dice({
     setClicked(false);
 
     if (possibleMoves.length === 0) {
-      let firstDice = dice[Math.floor(Math.random() * 6)];
-      let secondDice = dice[Math.floor(Math.random() * 6)];
-      // let firstDice = dice[5];
-      // let secondDice = dice[3];
+      // let firstDice = dice[Math.floor(Math.random() * 6)];
+      // let secondDice = dice[Math.floor(Math.random() * 6)];
+      let firstDice = dice[5];
+      let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
         //Generates the images based on first dice value
@@ -85,6 +85,7 @@ function Dice({
       }
 
       console.log("True");
+
       setRevived(true);
 
       //If the revival occurs with an enemy piece
