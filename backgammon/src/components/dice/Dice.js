@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Dice({
   dice,
@@ -16,6 +16,8 @@ function Dice({
   setKillPileOne,
   setTurn,
   turn,
+  revived,
+  setRevived,
 }) {
   React.useEffect(() => {
     // rollOne();
@@ -63,7 +65,6 @@ function Dice({
   };
 
   const verifyRevival = (firstIndex, secondIndex) => {
-    debugger;
     console.log(firstIndex, secondIndex);
     console.log(backgammon[firstIndex][1]);
     console.log(backgammon[firstIndex][0]);
@@ -84,21 +85,21 @@ function Dice({
       }
 
       console.log("True");
-      return true;
+      setRevived(true);
 
       //If the revival occurs with an enemy piece
     } else if (
       (backgammon[firstIndex][1] === 1 && backgammon[firstIndex][0] === 1) || // If an enemy piece is there but
       (backgammon[secondIndex][1] === 1 && backgammon[secondIndex][0] === 1)
     ) {
-      return 1;
+      setRevived(1);
       //Run some code that takes care of updating the [1] at that specified index. refrence to it
     } else {
       setTurn(1);
       setPossibleMoves([]);
       alert("false");
 
-      return false;
+      setRevived(false);
     }
   };
 

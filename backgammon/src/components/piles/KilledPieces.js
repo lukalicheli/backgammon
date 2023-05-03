@@ -1,37 +1,29 @@
 import React, { useEffect } from "react";
 import white from "../../assets/piece-data/white-piece.png";
 
-function KilledPieces({
-  backgammon,
-  killPileOne,
-  killPileTwo,
-  setKillPileOne,
-  setKillPileTwo,
-  turn,
-  setTurn,
-  pieceIndex,
-  setPieceIndex,
-  setClicked,
-  possibleMoves,
-}) {
-  const handleRevive = (i) => {
-    const board = [...backgammon];
-    const availableSpot = board.slice(0, 6);
-
-    let compareDiceValues = [...possibleMoves];
+function KilledPieces({ killPileOne, revived, setRevived }) {
+  debugger;
+  const handleRevive = () => {
+    if (revived === true) {
+      console.log("revived is true");
+    } else if (revived === 1) {
+      console.log("revived is 1");
+    } else {
+      console.log("revived is false");
+    }
   };
 
   const killedPieces = [];
 
-  if (killedPieces.length > 0) {
-    for (let i = 0; i < killedPieces.length; i++) {
-      if (killedPieces.length === 1) {
-      } else if (killedPieces.length === 2) {
-        const firstIndex = killedPieces[0] - 1;
-        const secondIndex = killedPieces[1] - 1;
-      }
-    }
-  }
+  // if (killedPieces.length > 0) {
+  //   for (let i = 0; i < killedPieces.length; i++) {
+  //     if (killedPieces.length === 1) {
+  //     } else if (killedPieces.length === 2) {
+  //       const firstIndex = killedPieces[0] - 1;
+  //       const secondIndex = killedPieces[1] - 1;
+  //     }
+  //   }
+  // }
 
   for (let i = 0; i < killPileOne; i++) {
     killedPieces.push(

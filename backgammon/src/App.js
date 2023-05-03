@@ -17,6 +17,7 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(3);
   const [killPileTwo, setKillPileTwo] = useState(0);
+  const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
     [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
     [0, -1, 1],
@@ -286,6 +287,8 @@ function App() {
         setKillPileOne={setKillPileOne}
         setTurn={setTurn}
         turn={turn}
+        revived={revived}
+        setRevived={setRevived}
       />
       <KilledPieces
         backgammon={backgammon}
@@ -299,6 +302,8 @@ function App() {
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
         possibleMoves={possibleMoves}
+        revived={revived}
+        setRevived={setRevived}
       ></KilledPieces>
     </div>
   );
