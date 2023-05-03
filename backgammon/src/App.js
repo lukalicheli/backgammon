@@ -13,7 +13,7 @@ function App() {
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(0);
+  const [turn, setTurn] = useState(1);
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(5);
   const [killPileTwo, setKillPileTwo] = useState(5);
@@ -243,19 +243,14 @@ function App() {
         console.log("no More");
         setTurn(0);
       }
-    } else if (turn === 1 && killPileTwo > 0) {
-      // for(let i=18; i<23; i++) {
-      //   let emptyIndex = 0;
-      //   let newValue =0;
-      //   if(backgammon[i][1] === 1 || backgammon[i][1] === -1 ) {
-      //    emptyIndex = backgammon[i][2];
-      //     const newBoard = [...board];
-      //   } else {
-      //     setTurn(0);
-      //     setClicked(false);
-      //     setPossibleMoves([]);
-      //   }
-      // }
+
+      //If Player 2's turn and needs to be revived
+    } else if (
+      turn === 1 &&
+      killPileTwo > 0 &&
+      revived !== false &&
+      possibleMoves.length > 0
+    ) {
       console.log("here");
     }
   };
@@ -326,6 +321,7 @@ function App() {
         turn={turn}
         revived={revived}
         setRevived={setRevived}
+        killPileTwo={killPileTwo}
       />
       <KilledPieces
         backgammon={backgammon}
