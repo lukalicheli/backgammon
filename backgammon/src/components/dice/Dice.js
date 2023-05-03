@@ -31,7 +31,7 @@ function Dice({
     if (possibleMoves.length === 0) {
       // let firstDice = dice[Math.floor(Math.random() * 6)];
       // let secondDice = dice[Math.floor(Math.random() * 6)];
-      let firstDice = dice[5];
+      let firstDice = dice[4];
       let secondDice = dice[3];
 
       for (let i = 0; i < diceImages.length; i++) {
@@ -65,9 +65,6 @@ function Dice({
   };
 
   const verifyRevival = (firstIndex, secondIndex) => {
-    console.log(firstIndex, secondIndex);
-    console.log(backgammon[firstIndex][1]);
-    console.log(backgammon[firstIndex][0]);
     // If the revival occurs on an empty or friendly piece
     if (
       backgammon[firstIndex][1] === 0 || //These first two are to check
@@ -83,8 +80,6 @@ function Dice({
         elements[i].style.height = "50px";
         elements[i].style.padding = "0px";
       }
-
-      console.log("True");
 
       setRevived(true);
 

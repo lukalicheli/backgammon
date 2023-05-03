@@ -15,7 +15,7 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(3);
+  const [killPileOne, setKillPileOne] = useState(2);
   const [killPileTwo, setKillPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
@@ -154,22 +154,27 @@ function App() {
       killPileOne > 0 &&
       possibleMoves.length > 0
     ) {
+      debugger;
       const possibleIndexOne = possibleMoves[0] - 1;
       const possibleIndexTwo = possibleMoves[1] - 1;
 
-      if (index === possibleIndexOne || index === possibleIndexTwo) {
+      if (
+        (index === possibleIndexOne || index === possibleIndexTwo) &&
+        clicked
+      ) {
         console.log(index);
         const newKillPile = killPileOne - 1;
         setKillPileOne(newKillPile);
         const newBoard = [...backgammon];
         newBoard[index][0] += 1;
         const updatedPossibleMoves = [...possibleMoves];
-        const indexToRemove = updatedPossibleMoves.indexOf(index);
+        const indexToRemove = updatedPossibleMoves.indexOf(index + 1);
 
-        updatedPossibleMoves.splice(indexToRemove, 1);
-        setPossibleMoves(updatedPossibleMoves);
-        if (backgammon[index][1] === -1) {
+        if (backgammon[index][1] === -1 || backgammon[index][1] === 0) {
           newBoard[index][1] = 0;
+          setClicked(false);
+          updatedPossibleMoves.splice(indexToRemove, 1);
+          setPossibleMoves(updatedPossibleMoves);
           setBackgammon(newBoard);
         }
       } else {
