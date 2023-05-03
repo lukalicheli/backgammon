@@ -15,8 +15,8 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(2);
-  const [killPileTwo, setKillPileTwo] = useState(0);
+  const [killPileOne, setKillPileOne] = useState(5);
+  const [killPileTwo, setKillPileTwo] = useState(5);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
     [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
@@ -148,6 +148,7 @@ function App() {
       }
     }
 
+    //If it's player 1's turn and there is a piece being revived
     if (
       turn === 0 &&
       revived !== false &&
@@ -182,7 +183,7 @@ function App() {
       }
     }
 
-    //If it's second player's turn
+    //If it's player 2's turn
     if (turn === 1 && killPileTwo === 0) {
       if (turn === 1 && (value[1] === 1 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
@@ -210,6 +211,8 @@ function App() {
         setPossibleMoves(updatedPossibleMoves);
         setClicked(false);
         setBackgammon(newBoard);
+
+        //If it's player 2's turn and it's killing player 1's piece
       } else if (killPiece(value) && clicked) {
         const newKillPile = killPileOne + 1;
         setKillPileOne(newKillPile);

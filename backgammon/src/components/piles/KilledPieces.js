@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import white from "../../assets/piece-data/white-piece.png";
+import brown from "../../assets/piece-data/brown-piece.png";
+import styled from "styled-components";
 
 function KilledPieces({
   killPileOne,
@@ -10,6 +12,8 @@ function KilledPieces({
   setClicked,
   handleClick,
   backgammon,
+  killPileTwo,
+  setKillPileTwo,
 }) {
   const handleRevive = () => {
     if (revived === true && !clicked) {
@@ -21,37 +25,67 @@ function KilledPieces({
     } else {
       console.log("revived is false");
     }
-
     if (revived === true && clicked) {
       handleClick();
     }
   };
 
   const killedPieces = [];
-
-  // if (killedPieces.length > 0) {
-  //   for (let i = 0; i < killedPieces.length; i++) {
-  //     if (killedPieces.length === 1) {
-  //     } else if (killedPieces.length === 2) {
-  //       const firstIndex = killedPieces[0] - 1;
-  //       const secondIndex = killedPieces[1] - 1;
-  //     }
-  //   }
-  // }
+  const killedPiecesTwo = [];
 
   for (let i = 0; i < killPileOne; i++) {
     killedPieces.push(
-      <img
-        className="killed-piece"
+      <PileOne
+        className="killed-piece white"
         src={white}
         key={i}
         alt="gammon piece"
         onClick={() => handleRevive(i)}
-      ></img>
+      ></PileOne>
     );
   }
 
-  return <div className="killed-pieces-container">{killedPieces}</div>;
+  for (let i = 0; i < killPileTwo; i++) {
+    killedPiecesTwo.push(
+      <PileTwo
+        className="killed-piece brown"
+        src={brown}
+        key={i}
+        alt="gammon piece"
+        onClick={() => handleRevive(i)}
+      ></PileTwo>
+    );
+  }
+
+  return (
+    <Container className="killed-pieces-container">
+      <div>{killedPieces}</div>
+      <div>{killedPiecesTwo}</div>
+    </Container>
+  );
 }
+
+const Container = styled.div`
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 5%;
+  left: 2%;
+  width: 8%;
+  height: 90%;
+`;
+
+const PileOne = styled.img`
+  padding: 0px;
+  width: 50px;
+  height: 50px;
+  margin: -5px 0px -5px 0px;
+`;
+const PileTwo = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: -5px 0px -5px 0px;
+`;
 
 export default KilledPieces;
