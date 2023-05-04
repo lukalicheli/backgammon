@@ -37,12 +37,12 @@ function App() {
     [0, -1, 15],
     [3, 0, 16],
     [0, -1, 17],
-    [5, 0, 18],
-    [0, -1, 19],
-    [0, -1, 20],
-    [0, -1, 21],
-    [0, -1, 22],
-    [2, 1, 23],
+    [5, 0, 18, 6],
+    [0, -1, 19, 5],
+    [0, -1, 20, 4],
+    [0, -1, 21, 3],
+    [0, -1, 22, 2],
+    [2, 1, 23, 1],
   ]);
 
   // Checks if the move is valid.
@@ -181,6 +181,8 @@ function App() {
       } else {
         console.log("error");
       }
+    } else if (possibleMoves.length === 0) {
+      setTurn(0);
     }
 
     //If it's player 2's turn
@@ -251,7 +253,28 @@ function App() {
       revived !== false &&
       possibleMoves.length > 0
     ) {
-      console.log("here");
+      debugger;
+
+      if (
+        (value[3] === possibleMoves[0] || value[3] === possibleMoves[1]) &&
+        clicked
+      ) {
+        //remove from killPile
+        const newKillPile = killPileTwo - 1;
+        setKillPileTwo(newKillPile);
+
+        //remove from possibleMoves
+        const newPossibleMoves = possibleMoves;
+        const valueToRemove = value[3];
+        const indexToRemove = newPossibleMoves.indexOf(valueToRemove);
+        if (indexToRemove !== -1) {
+          newPossibleMoves.splice(indexToRemove, 1);
+          setPossibleMoves(newPossibleMoves);
+          setClicked(false);
+        }
+      } else {
+        console.log("false");
+      }
     }
   };
 

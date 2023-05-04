@@ -25,7 +25,6 @@ function Dice({
   }, []);
 
   const rollOne = () => {
-    debugger;
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
     setClicked(false);
@@ -33,8 +32,8 @@ function Dice({
     if (possibleMoves.length === 0) {
       // let firstDice = dice[Math.floor(Math.random() * 6)];
       // let secondDice = dice[Math.floor(Math.random() * 6)];
-      let firstDice = dice[4];
-      let secondDice = dice[3];
+      let firstDice = dice[2];
+      let secondDice = dice[5];
 
       //Generates the images based on first dice value
       for (let i = 0; i < diceImages.length; i++) {
