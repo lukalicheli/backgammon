@@ -69,5 +69,13 @@
   height: 100%;
 }
 
+.discard-pile {
+  height: 210px;
+}
+
+.discard-pile.two {
+  display: flex;
+  flex-direction: column-reverse;
+}
 
 

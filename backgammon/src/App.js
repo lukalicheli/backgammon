@@ -16,8 +16,8 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(4);
-  const [killPileTwo, setKillPileTwo] = useState(3);
+  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(0);
   const [discardPileOne, setDiscardPileOne] = useState(3);
   const [discardPileTwo, setDiscardPileTwo] = useState(2);
   const [revived, setRevived] = useState(null);
@@ -111,31 +111,11 @@ function App() {
     }
   };
 
-  const verifyLastPieces = () => {
-    const backgammonBoard = [...backgammon];
-    if (turn === 0) {
-      //for player 1
-      for (let i = 0; i < 18; i++) {
-        if (backgammonBoard[i][1] !== 0) {
-        } else {
-          return false;
-        }
-      }
-    } else if (turn === 1) {
-      for (let i = 6; i < 23; i++) {
-        if (backgammonBoard[i][1] !== 1) {
-        } else {
-          return false;
-        }
-      }
-    }
-  };
-
   // This function moves the pieces and ends the turn when there's no more available moves
   const handleClick = (value, index) => {
     debugger;
     // If it's player 1's turn
-    if (turn === 0 && killPileOne === 0 && verifyLastPieces() === false) {
+    if (turn === 0 && killPileOne === 0) {
       //When moving a piece as player 1
       if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
@@ -197,25 +177,6 @@ function App() {
       } else if (possibleMoves.length === 0) {
         console.log("no More");
         setTurn(1);
-      }
-    } else if (
-      turn === 0 &&
-      killPileOne === 0 &&
-      verifyLastPieces() !== false
-    ) {
-      //When you roll a dice and the values it has are the values you can discard
-      const discardIndex = possibleMoves[0] - 1;
-      const discardIndex2 = possibleMoves[1] - 1;
-      const valueToRemove = value[3];
-
-      if (!clicked) {
-        setPieceIndex(value);
-        setClicked(true);
-      } else if (clicked) {
-        setClicked(false);
-
-        const difference = pieceIndex[3];
-        console.log(difference);
       }
     }
 

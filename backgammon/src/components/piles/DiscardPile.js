@@ -14,19 +14,35 @@ function DiscardPile({
   setClicked,
   handleClick,
   backgammon,
+  turn,
 }) {
-  const handleRevive = () => {
-    if (revived === true && !clicked) {
-      setClicked(true);
-      console.log("revived is true");
-    } else if (revived === 1) {
-      setClicked(true);
-      console.log("revived is 1");
-    } else {
-      console.log("revived is false");
+  const verifyLastPieces = () => {
+    const backgammonBoard = [...backgammon];
+    if (turn === 0) {
+      //for player 1
+      for (let i = 0; i < 18; i++) {
+        if (backgammonBoard[i][1] !== 0) {
+        } else {
+          return false;
+        }
+      }
+    } else if (turn === 1) {
+      for (let i = 6; i < 23; i++) {
+        if (backgammonBoard[i][1] !== 1) {
+        } else {
+          return false;
+        }
+      }
     }
-    if (revived === true && clicked) {
-      handleClick();
+  };
+
+  const handleDiscard = () => {
+    if (turn === 0 && clicked) {
+      console.log("yall");
+    }
+
+    if (turn === 1 && clicked) {
+      console.log("howdy");
     }
   };
 
@@ -40,7 +56,6 @@ function DiscardPile({
         src={brown}
         key={i}
         alt="gammon piece"
-        onClick={() => handleRevive(i)}
       ></PileOne>
     );
   }
@@ -52,15 +67,18 @@ function DiscardPile({
         src={white}
         key={i}
         alt="gammon piece"
-        onClick={() => handleRevive(i)}
       ></PileTwo>
     );
   }
 
   return (
     <Container className="discarded-pieces-container">
-      <div>{discardedPieces}</div>
-      <div>{discardedPiecesTwo}</div>
+      <div className="discard-pile one" onClick={() => handleDiscard()}>
+        {discardedPieces}
+      </div>
+      <div className="discard-pile two" onClick={() => handleDiscard()}>
+        {discardedPiecesTwo}
+      </div>
     </Container>
   );
 }
@@ -85,7 +103,7 @@ const PileOne = styled.img`
 const PileTwo = styled.img`
   width: 50px;
   height: 50px;
-  margin: -30px 0px -5px 0px;
+  margin: -30px 0px 0px 0px;
 `;
 
 export default DiscardPile;
