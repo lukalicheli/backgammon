@@ -110,13 +110,22 @@ function App() {
 
   const verifyLastPieces = () => {
     const backgammonBoard = [...backgammon];
-
-    //for player 1
-    for (let i = 0; i < 18; i++) {
-      if (backgammonBoard[i][1] !== 0) {
-        console.log(true);
-      } else {
-        return false;
+    if (turn === 0) {
+      //for player 1
+      for (let i = 0; i < 18; i++) {
+        if (backgammonBoard[i][1] !== 0) {
+          console.log(true);
+        } else {
+          return false;
+        }
+      }
+    } else if (turn === 1) {
+      for (let i = 6; i < 23; i++) {
+        if (backgammonBoard[i][1] !== 1) {
+          console.log(true);
+        } else {
+          return false;
+        }
       }
     }
   };
