@@ -14,11 +14,11 @@ function App() {
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(0);
+  const [turn, setTurn] = useState(1);
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(0);
   const [killPileTwo, setKillPileTwo] = useState(0);
-  const [discardPileOne, setDiscardPileOne] = useState(1);
+  const [discardPileOne, setDiscardPileOne] = useState(3);
   const [discardPileTwo, setDiscardPileTwo] = useState(2);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
@@ -28,7 +28,7 @@ function App() {
     [1, 1, 2],
     [2, 1, 3],
     [5, 1, 4],
-    [0, -1, 5],
+    [3, 1, 5],
     [0, -1, 6],
     [0, -1, 7],
     [0, -1, 8],

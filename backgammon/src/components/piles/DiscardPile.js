@@ -80,7 +80,37 @@ function DiscardPile({
     }
 
     if (turn === 1 && clicked) {
-      console.log("howdy");
+      const valueToCompare = pieceIndex[2] + 1;
+      if (
+        possibleMoves[0] === valueToCompare ||
+        possibleMoves[1] === valueToCompare
+      ) {
+        //new Values for backgammon board
+        const newValue = pieceIndex[0] - 1;
+        const newSubArray = [newValue, pieceIndex[1], pieceIndex[2]];
+
+        //replace the values on board and updating state
+        const newBoard = [...backgammon];
+        newBoard.splice(pieceIndex[2], 1, newSubArray);
+        setBackgammon(newBoard);
+
+        //updating pile and the state of pile as well as clicked
+        setDiscardPileOne(discardPileOne + 1);
+        setClicked(false);
+
+        //newValue for possibleMoves
+        const move = pieceIndex[2] + 1;
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(move);
+        if (indexToRemove !== -1) {
+          updatedPossibleMoves.splice(indexToRemove, 1);
+          setPossibleMoves(updatedPossibleMoves);
+        }
+      } else if (possibleMoves.length === 0) {
+        setTurn(1);
+      } else {
+        console.log("handleDiscard error");
+      }
     }
   };
 
