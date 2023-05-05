@@ -15,7 +15,9 @@ function DiscardPile({
   turn,
   pieceIndex,
   possibleMoves,
+  setPossibleMoves,
   setBackgammon,
+  setTurn,
 }) {
   const verifyLastPieces = () => {
     const backgammonBoard = [...backgammon];
@@ -44,6 +46,7 @@ function DiscardPile({
         possibleMoves[0] === valueToCompare ||
         possibleMoves[1] === valueToCompare
       ) {
+        //new Values for backgammon board
         const newValue = pieceIndex[0] - 1;
         const newSubArray = [
           newValue,
@@ -51,14 +54,26 @@ function DiscardPile({
           pieceIndex[2],
           pieceIndex[3],
         ];
+
+        //replace the values on board and updating state
         const newBoard = [...backgammon];
         newBoard.splice(pieceIndex[2], 1, newSubArray);
-
         setBackgammon(newBoard);
 
-        console.log(newSubArray);
+        //updating pile and the state of pile as well as clicked
         setDiscardPileTwo(discardPileTwo + 1);
         setClicked(false);
+
+        //newValue for possibleMoves
+        const move = pieceIndex[3];
+        const updatedPossibleMoves = [...possibleMoves];
+        const indexToRemove = updatedPossibleMoves.indexOf(move);
+        if (indexToRemove !== -1) {
+          updatedPossibleMoves.splice(indexToRemove, 1);
+          setPossibleMoves(updatedPossibleMoves);
+        }
+      } else if (possibleMoves.length === 0) {
+        setTurn(1);
       } else {
         console.log("handleDiscard error");
       }

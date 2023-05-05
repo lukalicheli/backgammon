@@ -409,6 +409,7 @@ function App() {
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
         possibleMoves={possibleMoves}
+        setPossibleMoves={setPossibleMoves}
         revived={revived}
         setRevived={setRevived}
         clicked={clicked}
