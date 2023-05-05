@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import brown from "./assets/piece-data/brown-piece.png";
 import white from "./assets/piece-data/white-piece.png";
@@ -18,8 +18,8 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(0);
   const [killPileTwo, setKillPileTwo] = useState(0);
-  const [discardPileOne, setDiscardPileOne] = useState(3);
-  const [discardPileTwo, setDiscardPileTwo] = useState(2);
+  const [discardPileOne, setDiscardPileOne] = useState(14);
+  const [discardPileTwo, setDiscardPileTwo] = useState(14);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
     // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
@@ -72,6 +72,21 @@ function App() {
     // [0, -1, 22, 2],
     // [2, 1, 23, 1],
   ]);
+
+  useEffect(() => {
+    debugger;
+    if (discardPileOne === 15) {
+      console.log("you win");
+    } else {
+      console.log("something is wrong");
+    }
+  }, [discardPileOne]);
+
+  useEffect(() => {
+    if (discardPileTwo === 15) {
+      alert("Game over, White wins!");
+    }
+  }, [discardPileTwo]);
 
   // Checks if the move is valid.
   // Compares the index difference of the two columns you clicked with at least one value in possibleMoves state
