@@ -6,6 +6,7 @@ import { diceImages } from "./assets/dice-data/DiceImages";
 import Dice from "./components/dice/Dice";
 import KilledPieces from "./components/piles/KilledPieces";
 import styled from "styled-components";
+import DiscardPile from "./components/piles/DiscardPile";
 
 function App() {
   const [pieceIndex, setPieceIndex] = useState(null);
@@ -15,28 +16,54 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(0);
-  const [killPileTwo, setKillPileTwo] = useState(0);
+  const [killPileOne, setKillPileOne] = useState(4);
+  const [killPileTwo, setKillPileTwo] = useState(3);
+  const [discardPileOne, setDiscardPileOne] = useState(3);
+  const [discardPileTwo, setDiscardPileTwo] = useState(2);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
     // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
-    // [0, -1, 0],
+    [2, 1, 0],
+    [5, 1, 1],
+    [1, 1, 2],
+    [2, 1, 3],
+    [5, 1, 4],
+    [0, -1, 5],
+    [0, -1, 6],
+    [0, -1, 7],
+    [0, -1, 8],
+    [0, -1, 9],
+    [0, -1, 10],
+    [0, -1, 11],
+    [0, -1, 12],
+    [0, -1, 13],
+    [0, -1, 14],
+    [0, -1, 15],
+    [0, -1, 16],
+    [0, -1, 17],
+    [3, 0, 18, 6],
+    [3, 0, 19, 5],
+    [3, 0, 20, 4],
+    [3, 0, 21, 3],
+    [3, 0, 22, 2],
+    [2, 0, 23, 1],
+    // [2, 0, 0],
     // [0, -1, 1],
     // [0, -1, 2],
     // [0, -1, 3],
     // [0, -1, 4],
-    // [0, 1, 5],
+    // [5, 1, 5],
     // [0, -1, 6],
-    // [0, 1, 7],
+    // [3, 1, 7],
     // [0, -1, 8],
     // [0, -1, 9],
     // [0, -1, 10],
-    // [0, -1, 11],
-    // [0, 1, 12],
+    // [5, 0, 11],
+    // [5, 1, 12],
     // [0, -1, 13],
     // [0, -1, 14],
     // [0, -1, 15],
-    // [0, -1, 16],
+    // [3, 0, 16],
     // [0, -1, 17],
     // [5, 0, 18, 6],
     // [0, -1, 19, 5],
@@ -44,30 +71,6 @@ function App() {
     // [0, -1, 21, 3],
     // [0, -1, 22, 2],
     // [2, 1, 23, 1],
-    [2, 0, 0],
-    [0, -1, 1],
-    [0, -1, 2],
-    [0, -1, 3],
-    [0, -1, 4],
-    [5, 1, 5],
-    [0, -1, 6],
-    [3, 1, 7],
-    [0, -1, 8],
-    [0, -1, 9],
-    [0, -1, 10],
-    [5, 0, 11],
-    [5, 1, 12],
-    [0, -1, 13],
-    [0, -1, 14],
-    [0, -1, 15],
-    [3, 0, 16],
-    [0, -1, 17],
-    [5, 0, 18, 6],
-    [0, -1, 19, 5],
-    [0, -1, 20, 4],
-    [0, -1, 21, 3],
-    [0, -1, 22, 2],
-    [2, 1, 23, 1],
   ]);
 
   // Checks if the move is valid.
@@ -114,7 +117,6 @@ function App() {
       //for player 1
       for (let i = 0; i < 18; i++) {
         if (backgammonBoard[i][1] !== 0) {
-          console.log(true);
         } else {
           return false;
         }
@@ -122,7 +124,6 @@ function App() {
     } else if (turn === 1) {
       for (let i = 6; i < 23; i++) {
         if (backgammonBoard[i][1] !== 1) {
-          console.log(true);
         } else {
           return false;
         }
@@ -144,7 +145,7 @@ function App() {
       } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
         const newSet = value[0] + 1;
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]];
+        const newSubarray = [newSet, pieceIndex[1], value[2], value[3]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
@@ -172,7 +173,7 @@ function App() {
         setKillPileTwo(newKillPile);
         const newSet = value[0];
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]];
+        const newSubarray = [newSet, pieceIndex[1], value[2], value[3]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
@@ -203,6 +204,19 @@ function App() {
       verifyLastPieces() !== false
     ) {
       //When you roll a dice and the values it has are the values you can discard
+      const discardIndex = possibleMoves[0] - 1;
+      const discardIndex2 = possibleMoves[1] - 1;
+      const valueToRemove = value[3];
+
+      if (!clicked) {
+        setPieceIndex(value);
+        setClicked(true);
+      } else if (clicked) {
+        setClicked(false);
+
+        const difference = pieceIndex[3];
+        console.log(difference);
+      }
     }
 
     //If it's player 1's turn and there is a piece being revived
@@ -251,7 +265,7 @@ function App() {
       } else if (turn === 1 && checkMove(value) && clicked && value[1] !== 0) {
         const newSet = value[0] + 1;
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]];
+        const newSubarray = [newSet, pieceIndex[1], value[2], value[3]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
@@ -278,7 +292,7 @@ function App() {
         setKillPileOne(newKillPile);
         const newSet = value[0];
         const oldSet = pieceIndex[0] - 1;
-        const newSubarray = [newSet, pieceIndex[1], value[2]];
+        const newSubarray = [newSet, pieceIndex[1], value[2], value[3]];
         const newSubarray2 = [
           oldSet,
           oldSet === 0 ? -1 : pieceIndex[1],
@@ -421,6 +435,23 @@ function App() {
         clicked={clicked}
         handleClick={handleClick}
       ></KilledPieces>
+      <DiscardPile
+        backgammon={backgammon}
+        discardPileOne={discardPileOne}
+        setDiscardPileOne={setDiscardPileOne}
+        discardPileTwo={discardPileTwo}
+        setDiscardPileTwo={setDiscardPileTwo}
+        turn={turn}
+        setTurn={setTurn}
+        pieceIndex={pieceIndex}
+        setPieceIndex={setPieceIndex}
+        setClicked={setClicked}
+        possibleMoves={possibleMoves}
+        revived={revived}
+        setRevived={setRevived}
+        clicked={clicked}
+        handleClick={handleClick}
+      />
     </div>
   );
 }
