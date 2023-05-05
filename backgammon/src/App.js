@@ -13,13 +13,38 @@ function App() {
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(1);
+  const [turn, setTurn] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(5);
-  const [killPileTwo, setKillPileTwo] = useState(5);
+  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
-    [2, 0, 0], // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
+    // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
+    // [0, -1, 0],
+    // [0, -1, 1],
+    // [0, -1, 2],
+    // [0, -1, 3],
+    // [0, -1, 4],
+    // [0, 1, 5],
+    // [0, -1, 6],
+    // [0, 1, 7],
+    // [0, -1, 8],
+    // [0, -1, 9],
+    // [0, -1, 10],
+    // [0, -1, 11],
+    // [0, 1, 12],
+    // [0, -1, 13],
+    // [0, -1, 14],
+    // [0, -1, 15],
+    // [0, -1, 16],
+    // [0, -1, 17],
+    // [5, 0, 18, 6],
+    // [0, -1, 19, 5],
+    // [0, -1, 20, 4],
+    // [0, -1, 21, 3],
+    // [0, -1, 22, 2],
+    // [2, 1, 23, 1],
+    [2, 0, 0],
     [0, -1, 1],
     [0, -1, 2],
     [0, -1, 3],
@@ -83,13 +108,30 @@ function App() {
     }
   };
 
+  const verifyLastPieces = () => {
+    const backgammonBoard = [...backgammon];
+
+    //for player 1
+    for (let i = 0; i < 18; i++) {
+      if (backgammonBoard[i][1] !== 0) {
+        console.log(true);
+      } else {
+        return false;
+      }
+    }
+  };
+
   // This function moves the pieces and ends the turn when there's no more available moves
   const handleClick = (value, index) => {
+    debugger;
     // If it's player 1's turn
-    if (turn === 0 && killPileOne === 0) {
+    if (turn === 0 && killPileOne === 0 && verifyLastPieces() === false) {
+      //When moving a piece as player 1
       if (turn === 0 && (value[1] === 0 || value[1] === -1) && !clicked) {
         setPieceIndex(value);
         setClicked(true);
+
+        //validating move
       } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
         const newSet = value[0] + 1;
         const oldSet = pieceIndex[0] - 1;
@@ -146,6 +188,12 @@ function App() {
         console.log("no More");
         setTurn(1);
       }
+    } else if (
+      turn === 0 &&
+      killPileOne === 0 &&
+      verifyLastPieces() !== false
+    ) {
+      //When you roll a dice and the values it has are the values you can discard
     }
 
     //If it's player 1's turn and there is a piece being revived
@@ -155,7 +203,6 @@ function App() {
       killPileOne > 0 &&
       possibleMoves.length > 0
     ) {
-      debugger;
       const possibleIndexOne = possibleMoves[0] - 1;
       const possibleIndexTwo = possibleMoves[1] - 1;
 
@@ -178,12 +225,14 @@ function App() {
           setPossibleMoves(updatedPossibleMoves);
           setBackgammon(newBoard);
         }
+      } else if (possibleMoves.length === 0) {
+        setTurn(0);
       } else {
         console.log("error");
       }
-    } else if (possibleMoves.length === 0) {
-      setTurn(0);
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
 
     //If it's player 2's turn
     if (turn === 1 && killPileTwo === 0) {
@@ -253,8 +302,6 @@ function App() {
       revived !== false &&
       possibleMoves.length > 0
     ) {
-      debugger;
-
       if (
         (value[3] === possibleMoves[0] || value[3] === possibleMoves[1]) &&
         clicked
@@ -277,6 +324,8 @@ function App() {
       }
     }
   };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Makes the columns for the game
   const renderColumn = (value, index) => {

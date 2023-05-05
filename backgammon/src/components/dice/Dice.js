@@ -30,10 +30,10 @@ function Dice({
     setClicked(false);
 
     if (possibleMoves.length === 0) {
-      // let firstDice = dice[Math.floor(Math.random() * 6)];
-      // let secondDice = dice[Math.floor(Math.random() * 6)];
-      let firstDice = dice[2];
-      let secondDice = dice[5];
+      let firstDice = dice[Math.floor(Math.random() * 6)];
+      let secondDice = dice[Math.floor(Math.random() * 6)];
+      // let firstDice = dice[2];
+      // let secondDice = dice[5];
 
       //Generates the images based on first dice value
       for (let i = 0; i < diceImages.length; i++) {
