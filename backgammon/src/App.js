@@ -18,7 +18,7 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(0);
   const [killPileTwo, setKillPileTwo] = useState(0);
-  const [discardPileOne, setDiscardPileOne] = useState(3);
+  const [discardPileOne, setDiscardPileOne] = useState(1);
   const [discardPileTwo, setDiscardPileTwo] = useState(2);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
@@ -398,6 +398,7 @@ function App() {
       ></KilledPieces>
       <DiscardPile
         backgammon={backgammon}
+        setBackgammon={setBackgammon}
         discardPileOne={discardPileOne}
         setDiscardPileOne={setDiscardPileOne}
         discardPileTwo={discardPileTwo}

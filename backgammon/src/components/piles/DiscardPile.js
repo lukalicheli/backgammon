@@ -8,13 +8,14 @@ function DiscardPile({
   discardPileTwo,
   setDiscardPileOne,
   setDiscardPileTwo,
-  revived,
-  setRevived,
   clicked,
   setClicked,
   handleClick,
   backgammon,
   turn,
+  pieceIndex,
+  possibleMoves,
+  setBackgammon,
 }) {
   const verifyLastPieces = () => {
     const backgammonBoard = [...backgammon];
@@ -38,7 +39,29 @@ function DiscardPile({
 
   const handleDiscard = () => {
     if (turn === 0 && clicked) {
-      console.log("yall");
+      const valueToCompare = pieceIndex[3];
+      if (
+        possibleMoves[0] === valueToCompare ||
+        possibleMoves[1] === valueToCompare
+      ) {
+        const newValue = pieceIndex[0] - 1;
+        const newSubArray = [
+          newValue,
+          pieceIndex[1],
+          pieceIndex[2],
+          pieceIndex[3],
+        ];
+        const newBoard = [...backgammon];
+        newBoard.splice(pieceIndex[2], 1, newSubArray);
+
+        setBackgammon(newBoard);
+
+        console.log(newSubArray);
+        setDiscardPileTwo(discardPileTwo + 1);
+        setClicked(false);
+      } else {
+        console.log("handleDiscard error");
+      }
     }
 
     if (turn === 1 && clicked) {
