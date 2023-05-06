@@ -7,6 +7,7 @@ import Dice from "./components/dice/Dice";
 import KilledPieces from "./components/piles/KilledPieces";
 import styled from "styled-components";
 import DiscardPile from "./components/piles/DiscardPile";
+import PlayerTurn from "./components/misc/PlayerTurn";
 
 function App() {
   const [started, setStarted] = useState(true);
@@ -445,6 +446,7 @@ function App() {
         clicked={clicked}
         handleClick={handleClick}
       />
+      <PlayerTurn turn={turn} />
     </div>
   );
 }
