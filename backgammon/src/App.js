@@ -14,63 +14,63 @@ function App() {
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(1);
+  const [turn, setTurn] = useState(2);
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(0);
   const [killPileTwo, setKillPileTwo] = useState(0);
-  const [discardPileOne, setDiscardPileOne] = useState(14);
-  const [discardPileTwo, setDiscardPileTwo] = useState(14);
+  const [discardPileOne, setDiscardPileOne] = useState(0);
+  const [discardPileTwo, setDiscardPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
     // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
-    [2, 1, 0],
-    [5, 1, 1],
-    [1, 1, 2],
-    [2, 1, 3],
-    [5, 1, 4],
-    [3, 1, 5],
-    [0, -1, 6],
-    [0, -1, 7],
-    [0, -1, 8],
-    [0, -1, 9],
-    [0, -1, 10],
-    [0, -1, 11],
-    [0, -1, 12],
-    [0, -1, 13],
-    [0, -1, 14],
-    [0, -1, 15],
-    [0, -1, 16],
-    [0, -1, 17],
-    [3, 0, 18, 6],
-    [3, 0, 19, 5],
-    [3, 0, 20, 4],
-    [3, 0, 21, 3],
-    [3, 0, 22, 2],
-    [2, 0, 23, 1],
-    // [2, 0, 0],
-    // [0, -1, 1],
-    // [0, -1, 2],
-    // [0, -1, 3],
-    // [0, -1, 4],
-    // [5, 1, 5],
+    // [2, 1, 0],
+    // [5, 1, 1],
+    // [1, 1, 2],
+    // [2, 1, 3],
+    // [5, 1, 4],
+    // [3, 1, 5],
     // [0, -1, 6],
-    // [3, 1, 7],
+    // [0, -1, 7],
     // [0, -1, 8],
     // [0, -1, 9],
     // [0, -1, 10],
-    // [5, 0, 11],
-    // [5, 1, 12],
+    // [0, -1, 11],
+    // [0, -1, 12],
     // [0, -1, 13],
     // [0, -1, 14],
     // [0, -1, 15],
-    // [3, 0, 16],
+    // [0, -1, 16],
     // [0, -1, 17],
-    // [5, 0, 18, 6],
-    // [0, -1, 19, 5],
-    // [0, -1, 20, 4],
-    // [0, -1, 21, 3],
-    // [0, -1, 22, 2],
-    // [2, 1, 23, 1],
+    // [3, 0, 18, 6],
+    // [3, 0, 19, 5],
+    // [3, 0, 20, 4],
+    // [3, 0, 21, 3],
+    // [3, 0, 22, 2],
+    // [2, 0, 23, 1],
+    [2, 0, 0],
+    [0, -1, 1],
+    [0, -1, 2],
+    [0, -1, 3],
+    [0, -1, 4],
+    [5, 1, 5],
+    [0, -1, 6],
+    [3, 1, 7],
+    [0, -1, 8],
+    [0, -1, 9],
+    [0, -1, 10],
+    [5, 0, 11],
+    [5, 1, 12],
+    [0, -1, 13],
+    [0, -1, 14],
+    [0, -1, 15],
+    [3, 0, 16],
+    [0, -1, 17],
+    [5, 0, 18, 6],
+    [0, -1, 19, 5],
+    [0, -1, 20, 4],
+    [0, -1, 21, 3],
+    [0, -1, 22, 2],
+    [2, 1, 23, 1],
   ]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function App() {
     if (discardPileOne === 15) {
       console.log("you win");
     } else {
-      console.log("something is wrong");
+      console.log("keep going!");
     }
   }, [discardPileOne]);
 

@@ -20,21 +20,27 @@ function Dice({
   setRevived,
   killPileTwo,
 }) {
-  React.useEffect(() => {
-    // rollOne();
-  }, []);
+  React.useEffect(() => {}, []);
 
   const rollOne = () => {
+    let firstDice = dice[Math.floor(Math.random() * 6)];
+    let secondDice = dice[Math.floor(Math.random() * 6)];
+    // let firstDice = dice[2];
+    // let secondDice = dice[5];
+
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
     setClicked(false);
 
-    if (possibleMoves.length === 0) {
-      let firstDice = dice[Math.floor(Math.random() * 6)];
-      let secondDice = dice[Math.floor(Math.random() * 6)];
-      // let firstDice = dice[2];
-      // let secondDice = dice[5];
+    if (firstDice > secondDice) {
+      setTurn(1);
+    } else if (firstDice === secondDice) {
+      alert("fix this");
+    } else {
+      setTurn(0);
+    }
 
+    if (possibleMoves.length === 0) {
       //Generates the images based on first dice value
       for (let i = 0; i < diceImages.length; i++) {
         if (diceImages[i].value === firstDice) {
