@@ -9,6 +9,7 @@ import styled from "styled-components";
 import DiscardPile from "./components/piles/DiscardPile";
 
 function App() {
+  const [started, setStarted] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
   const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
   const [firstDice, setFirstDice] = useState(null);

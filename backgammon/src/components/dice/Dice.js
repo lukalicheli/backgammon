@@ -19,6 +19,7 @@ function Dice({
   revived,
   setRevived,
   killPileTwo,
+  started,
 }) {
   React.useEffect(() => {}, []);
 
@@ -32,11 +33,11 @@ function Dice({
     setPieceIndex(null);
     setClicked(false);
 
-    if (firstDice > secondDice) {
+    if (firstDice > secondDice && !started) {
       setTurn(1);
-    } else if (firstDice === secondDice) {
+    } else if (firstDice === secondDice && !started) {
       alert("fix this");
-    } else {
+    } else if (firstDice < secondDice && !started) {
       setTurn(0);
     }
 
