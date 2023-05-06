@@ -20,6 +20,7 @@ function Dice({
   setRevived,
   killPileTwo,
   started,
+  setStarted,
 }) {
   React.useEffect(() => {}, []);
 
@@ -78,6 +79,8 @@ function Dice({
         verifyRevival(firstIndex2, secondIndex2);
       }
     }
+
+    setStarted(true);
   };
 
   const verifyRevival = (firstIndex, secondIndex) => {
