@@ -22,7 +22,17 @@ function Dice({
   started,
   setStarted,
 }) {
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    if (started) {
+      if (possibleMoves.length === 0) {
+        if (turn === 0) {
+          setTurn(1);
+        } else if (turn === 1) {
+          setTurn(0);
+        }
+      }
+    }
+  }, [possibleMoves]);
 
   const rollOne = () => {
     let firstDice = dice[Math.floor(Math.random() * 6)];
@@ -36,10 +46,13 @@ function Dice({
 
     if (firstDice > secondDice && !started) {
       setTurn(1);
+      setStarted(true);
     } else if (firstDice === secondDice && !started) {
       alert("fix this");
+      setStarted(true);
     } else if (firstDice < secondDice && !started) {
       setTurn(0);
+      setStarted(true);
     }
 
     if (possibleMoves.length === 0) {
@@ -79,8 +92,6 @@ function Dice({
         verifyRevival(firstIndex2, secondIndex2);
       }
     }
-
-    setStarted(true);
   };
 
   const verifyRevival = (firstIndex, secondIndex) => {

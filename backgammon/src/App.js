@@ -10,7 +10,7 @@ import DiscardPile from "./components/piles/DiscardPile";
 import PlayerTurn from "./components/misc/PlayerTurn";
 
 function App() {
-  const [started, setStarted] = useState(true);
+  const [started, setStarted] = useState(false);
   const [pieceIndex, setPieceIndex] = useState(null);
   const [dice, setDice] = useState([1, 2, 3, 4, 5, 6]);
   const [firstDice, setFirstDice] = useState(null);
@@ -20,7 +20,7 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(3);
   const [killPileTwo, setKillPileTwo] = useState(0);
-  const [discardPileOne, setDiscardPileOne] = useState();
+  const [discardPileOne, setDiscardPileOne] = useState(0);
   const [discardPileTwo, setDiscardPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
   const [backgammon, setBackgammon] = useState([
