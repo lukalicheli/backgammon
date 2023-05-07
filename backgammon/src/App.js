@@ -16,10 +16,10 @@ function App() {
   const [firstDice, setFirstDice] = useState(null);
   const [secondDice, setSecondDice] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
-  const [turn, setTurn] = useState(0);
+  const [turn, setTurn] = useState(1);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(3);
-  const [killPileTwo, setKillPileTwo] = useState(0);
+  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(3);
   const [discardPileOne, setDiscardPileOne] = useState(0);
   const [discardPileTwo, setDiscardPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
@@ -322,6 +322,7 @@ function App() {
         //remove from killPile
         const newKillPile = killPileTwo - 1;
         setKillPileTwo(newKillPile);
+        console.log("YOu're trying to revive a piece");
 
         //remove from possibleMoves
         const newPossibleMoves = possibleMoves;
