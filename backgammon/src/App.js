@@ -370,15 +370,10 @@ function App() {
     if (value[0] === 0 || value[1] === -1) {
       // empty column
       return (
-        <div
+        <EmptyColumn
           key={index}
-          className={`gammon-column ${
-            (Array.isArray(possibleColumnIndex) &&
-              possibleColumnIndex[0] === value[2]) ||
-            possibleColumnIndex[1] === value[2]
-              ? 'gammon-possible-move-column'
-              : ''
-          }`}
+          possibleColumnIndex={possibleColumnIndex}
+          value={value}
           onClick={() => handleClick(value, index)}
         />
       )
@@ -494,11 +489,19 @@ function App() {
   )
 }
 
-const Column = styled.div`
+const EmptyColumn = styled.div`
   display: flex;
   width: 50px;
   height: 100%;
   margin: -10px 0px -10px 0px;
+
+  ${({ possibleColumnIndex, value }) => {
+    return (Array.isArray(possibleColumnIndex) &&
+      possibleColumnIndex[0] === value[2]) ||
+      possibleColumnIndex[1] === value[2]
+      ? 'border: 3px solid orange;'
+      : ''
+  }}
 `
 
 const Image = styled.img`

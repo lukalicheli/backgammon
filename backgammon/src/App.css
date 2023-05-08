@@ -24,16 +24,6 @@
   margin: -14px -3px;
   border: 3px solid transparent;
 }
-.gammon-column {
-  display: flex;
-  width: 50px;
-  height: 100%;
-  margin: -10px 0px -10px 0px;
-}
-
-.gammon-possible-move-column {
-  border: 3px solid orange;
-}
 
 .gammon-piece-selected {
   border: 3px solid limegreen;
