@@ -11,11 +11,14 @@ function KilledPieces({
   clicked,
   setClicked,
   handleClick,
-  backgammon,
+  turn,
+  setTurn,
   killPileTwo,
   setKillPileTwo,
+  setPossibleMoves,
 }) {
   const handleRevive = () => {
+    debugger;
     if (revived === true && !clicked) {
       setClicked(true);
       console.log("revived is true");

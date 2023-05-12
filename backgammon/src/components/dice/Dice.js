@@ -129,6 +129,7 @@ function Dice({
         setRevived(false);
       }
     } else if (turn === 1) {
+      debugger;
       if (
         backgammon[firstIndex][1] === 1 || //These first two are to check
         backgammon[firstIndex][1] === -1 ||
@@ -154,7 +155,6 @@ function Dice({
         setRevived(1);
         //Run some code that takes care of updating the [1] at that specified index. refrence to it
       } else {
-        setTurn(0);
         setPossibleMoves([]);
         alert("false");
         setRevived(false);

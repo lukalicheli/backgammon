@@ -19,19 +19,44 @@ function App() {
   const [turn, setTurn] = useState(2);
   const [clicked, setClicked] = useState(false);
   const [killPileOne, setKillPileOne] = useState(0);
-  const [killPileTwo, setKillPileTwo] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(2);
   const [discardPileOne, setDiscardPileOne] = useState(0);
   const [discardPileTwo, setDiscardPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
   const [possibleColumnIndex, setPossibleColumnIndex] = useState([]);
   const [backgammon, setBackgammon] = useState([
     // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
-    // [1, 1, 0],
-    // [1, 1, 1],
-    // [1, 1, 2],
-    // [1, 1, 3],
-    // [1, 1, 4],
-    // [1, 1, 5],
+    [2, 0, 0],
+    [0, -1, 1],
+    [0, -1, 2],
+    [0, -1, 3],
+    [0, -1, 4],
+    [5, 1, 5],
+    [0, -1, 6],
+    [3, 1, 7],
+    [1, 1, 8],
+    [1, 1, 9],
+    [1, 1, 10],
+    [5, 0, 11],
+    [5, 1, 12],
+    [0, -1, 13],
+    [0, -1, 14],
+    [0, -1, 15],
+    [3, 0, 16],
+    [0, -1, 17],
+    [2, 0, 18, 6],
+    [2, 0, 19, 5],
+    [2, 0, 20, 4],
+    [2, 0, 21, 3],
+    [2, 0, 22, 2],
+    [2, 1, 23, 1],
+
+    // [2, 0, 0],
+    // [0, -1, 1],
+    // [0, -1, 2],
+    // [0, -1, 3],
+    // [0, -1, 4],
+    // [5, 1, 5],
     // [0, -1, 6],
     // [3, 1, 7],
     // [0, -1, 8],
@@ -50,30 +75,6 @@ function App() {
     // [0, -1, 21, 3],
     // [0, -1, 22, 2],
     // [2, 1, 23, 1],
-    [2, 0, 0],
-    [0, -1, 1],
-    [0, -1, 2],
-    [0, -1, 3],
-    [0, -1, 4],
-    [5, 1, 5],
-    [0, -1, 6],
-    [3, 1, 7],
-    [0, -1, 8],
-    [0, -1, 9],
-    [0, -1, 10],
-    [5, 0, 11],
-    [5, 1, 12],
-    [0, -1, 13],
-    [0, -1, 14],
-    [0, -1, 15],
-    [3, 0, 16],
-    [0, -1, 17],
-    [5, 0, 18, 6],
-    [0, -1, 19, 5],
-    [0, -1, 20, 4],
-    [0, -1, 21, 3],
-    [0, -1, 22, 2],
-    [2, 1, 23, 1],
   ]);
 
   useEffect(() => {
@@ -345,6 +346,18 @@ function App() {
         console.log("YOu're trying to revive a piece");
 
         //adding piece to the baord
+        const newBoard = [...backgammon];
+        debugger;
+
+        if (value[1] === 1 || value[1] === -1) {
+          newBoard[value[2]][0] += 1;
+          console.log("Successfully revived piece");
+          setBackgammon(newBoard);
+        } else if (value[0] === 1 && value[1] === 0) {
+          newBoard[value[2]][1] = 1;
+          console.log("enemy piece killed");
+          setBackgammon(newBoard);
+        }
 
         //remove from possibleMoves
         const newPossibleMoves = possibleMoves;
@@ -355,7 +368,7 @@ function App() {
           setPossibleMoves(newPossibleMoves);
           setClicked(false);
         }
-      } else {
+      } else if (possibleMoves.length === 0) {
         console.log("false");
       }
     }
@@ -460,6 +473,7 @@ function App() {
         setPieceIndex={setPieceIndex}
         setClicked={setClicked}
         possibleMoves={possibleMoves}
+        setPossibleMoves={setPossibleMoves}
         revived={revived}
         setRevived={setRevived}
         clicked={clicked}
