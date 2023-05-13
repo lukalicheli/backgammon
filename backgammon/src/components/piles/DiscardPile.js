@@ -39,7 +39,51 @@ function DiscardPile({
     }
   };
 
+  const verifyDiscard = () => {
+    debugger;
+    //if it's black's turn
+    if (turn === 1) {
+      const currIndex = pieceIndex[2] + 1;
+      for (let i = currIndex; i < 6; i++) {
+        const element = backgammon[i][0];
+        if (element !== 0) {
+          console.log("can't move");
+          return false;
+        } else {
+          console.log("you can move");
+        }
+      }
+
+      //If it's white's turn
+    } else if (turn === 0) {
+    }
+  };
+
+  const discardPiece = () => {
+    const newValue = pieceIndex[0] - 1;
+    const newSubArray = [newValue, pieceIndex[1], pieceIndex[2], pieceIndex[3]];
+
+    //replace the values on board and updating state
+    const newBoard = [...backgammon];
+    newBoard.splice(pieceIndex[2], 1, newSubArray);
+    setBackgammon(newBoard);
+
+    //updating pile and the state of pile as well as clicked
+    setDiscardPileTwo(discardPileTwo + 1);
+    setClicked(false);
+
+    //newValue for possibleMoves
+    const move = pieceIndex[3];
+    const updatedPossibleMoves = [...possibleMoves];
+    const indexToRemove = updatedPossibleMoves.indexOf(move);
+    if (indexToRemove !== -1) {
+      updatedPossibleMoves.splice(indexToRemove, 1);
+      setPossibleMoves(updatedPossibleMoves);
+    }
+  };
+
   const handleDiscard = () => {
+    debugger;
     if (turn === 0 && clicked) {
       const valueToCompare = pieceIndex[3];
       if (
@@ -47,33 +91,7 @@ function DiscardPile({
         possibleMoves[1] === valueToCompare
       ) {
         //new Values for backgammon board
-        const newValue = pieceIndex[0] - 1;
-        const newSubArray = [
-          newValue,
-          pieceIndex[1],
-          pieceIndex[2],
-          pieceIndex[3],
-        ];
-
-        //replace the values on board and updating state
-        const newBoard = [...backgammon];
-        newBoard.splice(pieceIndex[2], 1, newSubArray);
-        setBackgammon(newBoard);
-
-        //updating pile and the state of pile as well as clicked
-        setDiscardPileTwo(discardPileTwo + 1);
-        setClicked(false);
-
-        //newValue for possibleMoves
-        const move = pieceIndex[3];
-        const updatedPossibleMoves = [...possibleMoves];
-        const indexToRemove = updatedPossibleMoves.indexOf(move);
-        if (indexToRemove !== -1) {
-          updatedPossibleMoves.splice(indexToRemove, 1);
-          setPossibleMoves(updatedPossibleMoves);
-        }
-      } else if (possibleMoves.length === 0) {
-        setTurn(1);
+        discardPiece();
       } else {
         console.log("handleDiscard error");
       }
@@ -106,8 +124,6 @@ function DiscardPile({
           updatedPossibleMoves.splice(indexToRemove, 1);
           setPossibleMoves(updatedPossibleMoves);
         }
-      } else if (possibleMoves.length === 0) {
-        setTurn(1);
       } else {
         console.log("handleDiscard error");
       }

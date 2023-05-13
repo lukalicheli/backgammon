@@ -31,6 +31,8 @@ function Dice({
           setTurn(0);
         }
       }
+    } else {
+      console.log("do nothing");
     }
   }, [possibleMoves]);
 
