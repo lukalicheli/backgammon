@@ -61,7 +61,10 @@ function DiscardPile({
 
   const discardPiece = () => {
     const newValue = pieceIndex[0] - 1;
-    const newSubArray = [newValue, pieceIndex[1], pieceIndex[2], pieceIndex[3]];
+    const newSubArray =
+      turn === 0
+        ? [newValue, pieceIndex[1], pieceIndex[2], pieceIndex[3]]
+        : [newValue, pieceIndex[1], pieceIndex[2]];
 
     //replace the values on board and updating state
     const newBoard = [...backgammon];
@@ -69,11 +72,16 @@ function DiscardPile({
     setBackgammon(newBoard);
 
     //updating pile and the state of pile as well as clicked
-    setDiscardPileTwo(discardPileTwo + 1);
+
+    turn === 0
+      ? setDiscardPileTwo(discardPileTwo + 1)
+      : setDiscardPileOne(discardPileOne + 1);
+
     setClicked(false);
 
     //newValue for possibleMoves
-    const move = pieceIndex[3];
+
+    const move = turn === 0 ? pieceIndex[3] : pieceIndex[2] + 1;
     const updatedPossibleMoves = [...possibleMoves];
     const indexToRemove = updatedPossibleMoves.indexOf(move);
     if (indexToRemove !== -1) {
@@ -84,7 +92,7 @@ function DiscardPile({
 
   const handleDiscard = () => {
     debugger;
-    if (turn === 0 && clicked) {
+    if (turn === 0 && clicked && verifyLastPieces() !== false) {
       const valueToCompare = pieceIndex[3];
       if (
         possibleMoves[0] === valueToCompare ||
@@ -97,33 +105,15 @@ function DiscardPile({
       }
     }
 
-    if (turn === 1 && clicked) {
+    if (turn === 1 && clicked && verifyLastPieces() !== false) {
+      debugger;
       const valueToCompare = pieceIndex[2] + 1;
       if (
         possibleMoves[0] === valueToCompare ||
         possibleMoves[1] === valueToCompare
       ) {
         //new Values for backgammon board
-        const newValue = pieceIndex[0] - 1;
-        const newSubArray = [newValue, pieceIndex[1], pieceIndex[2]];
-
-        //replace the values on board and updating state
-        const newBoard = [...backgammon];
-        newBoard.splice(pieceIndex[2], 1, newSubArray);
-        setBackgammon(newBoard);
-
-        //updating pile and the state of pile as well as clicked
-        setDiscardPileOne(discardPileOne + 1);
-        setClicked(false);
-
-        //newValue for possibleMoves
-        const move = pieceIndex[2] + 1;
-        const updatedPossibleMoves = [...possibleMoves];
-        const indexToRemove = updatedPossibleMoves.indexOf(move);
-        if (indexToRemove !== -1) {
-          updatedPossibleMoves.splice(indexToRemove, 1);
-          setPossibleMoves(updatedPossibleMoves);
-        }
+        discardPiece();
       } else {
         console.log("handleDiscard error");
       }
