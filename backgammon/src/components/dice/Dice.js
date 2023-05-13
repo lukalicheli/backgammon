@@ -46,7 +46,7 @@ function Dice({
     let secondDice = dice[Math.floor(Math.random() * 6)];
 
     // let firstDice = dice[2];
-    // let secondDice = dice[5];
+    // let secondDice = dice[2];
 
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
@@ -56,7 +56,7 @@ function Dice({
       setTurn(1);
       setStarted(true);
     } else if (firstDice === secondDice && !started) {
-      alert("fix this");
+      alert("Roll Again");
       return;
     } else if (firstDice < secondDice && !started) {
       setTurn(0);
