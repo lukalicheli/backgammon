@@ -4,7 +4,13 @@ import styled from "styled-components";
 function PlayerTurn({ turn }) {
   return (
     <Container>
-      {turn === 1 ? <Player>Brown</Player> : <Player>White</Player>}
+      {turn === 1 ? (
+        <Player>Brown</Player>
+      ) : turn === 0 ? (
+        <Player>White</Player>
+      ) : (
+        <Player>Roll</Player>
+      )}
     </Container>
   );
 }

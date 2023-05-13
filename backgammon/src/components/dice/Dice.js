@@ -36,9 +36,15 @@ function Dice({
     }
   }, [possibleMoves]);
 
+  //   const diceRoll = () => {
+  // return [firstDice, secondDice]
+  //   }
+
   const rollOne = () => {
+    debugger;
     let firstDice = dice[Math.floor(Math.random() * 6)];
     let secondDice = dice[Math.floor(Math.random() * 6)];
+
     // let firstDice = dice[2];
     // let secondDice = dice[5];
 
@@ -51,7 +57,7 @@ function Dice({
       setStarted(true);
     } else if (firstDice === secondDice && !started) {
       alert("fix this");
-      setStarted(true);
+      return;
     } else if (firstDice < secondDice && !started) {
       setTurn(0);
       setStarted(true);
