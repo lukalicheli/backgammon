@@ -312,6 +312,7 @@ function App() {
         const newBoard = [...backgammon];
 
         if (value[1] === 1 || value[1] === -1) {
+          newBoard[value[2]][1] = 1;
           newBoard[value[2]][0] += 1;
           console.log("Successfully revived piece");
           setBackgammon(newBoard);
