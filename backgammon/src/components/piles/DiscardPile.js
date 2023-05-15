@@ -90,6 +90,7 @@ function DiscardPile({
   };
 
   const handleDiscard = () => {
+    debugger;
     if (turn === 0 && clicked && verifyLastPieces() !== false) {
       const valueToCompare = pieceIndex[3];
       if (
@@ -111,8 +112,10 @@ function DiscardPile({
       ) {
         //new Values for backgammon board
         discardPiece();
+      } else if (verifyDiscard() !== false) {
+        discardPiece();
       } else {
-        console.log("handleDiscard error");
+        console.log("cant do that");
       }
     }
   };
