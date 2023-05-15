@@ -18,8 +18,8 @@ function App() {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [turn, setTurn] = useState(1);
   const [clicked, setClicked] = useState(false);
-  const [killPileOne, setKillPileOne] = useState(1);
-  const [killPileTwo, setKillPileTwo] = useState(1);
+  const [killPileOne, setKillPileOne] = useState(0);
+  const [killPileTwo, setKillPileTwo] = useState(0);
   const [discardPileOne, setDiscardPileOne] = useState(0);
   const [discardPileTwo, setDiscardPileTwo] = useState(0);
   const [revived, setRevived] = useState(null);
@@ -78,7 +78,6 @@ function App() {
   ]);
 
   useEffect(() => {
-    // debugger;
     if (discardPileOne === 15) {
       console.log("you win");
     }
@@ -220,7 +219,7 @@ function App() {
       } else if (turn === 0 && checkMove(value) && clicked && value[1] !== 1) {
         movePiece();
         //Incase player 1 kills player 2's piece
-      } else if (killPiece(value) && clicked) {
+      } else if (killPiece(value) && clicked && checkMove(value)) {
         killOpposingPiece();
       }
     }
@@ -234,13 +233,11 @@ function App() {
     ) {
       const possibleIndexOne = possibleMoves[0] - 1;
       const possibleIndexTwo = possibleMoves[1] - 1;
-      debugger;
+
       if (
         (index === possibleIndexOne || index === possibleIndexTwo) &&
         clicked
       ) {
-        console.log(index);
-
         const newBoard = [...backgammon];
 
         const updatedPossibleMoves = [...possibleMoves];
@@ -288,7 +285,7 @@ function App() {
         movePiece();
 
         //Killing Piece as player 2
-      } else if (killPiece(value) && clicked) {
+      } else if (killPiece(value) && clicked && checkMove(value)) {
         killOpposingPiece();
       }
 
@@ -305,11 +302,6 @@ function App() {
         // (value[3] === possibleMoves[0] || value[3] === possibleMoves[1]) &&
         // clicked
       ) {
-        //remove from killPile
-
-        console.log("YOu're trying to revive a piece");
-
-        //adding piece to the baord
         const newBoard = [...backgammon];
 
         if (value[1] === 1 || value[1] === -1) {

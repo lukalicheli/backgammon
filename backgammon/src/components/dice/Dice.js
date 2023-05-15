@@ -41,7 +41,6 @@ function Dice({
   //   }
 
   const rollOne = () => {
-    debugger;
     let firstDice = dice[Math.floor(Math.random() * 6)];
     let secondDice = dice[Math.floor(Math.random() * 6)];
 

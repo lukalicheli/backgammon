@@ -40,7 +40,6 @@ function DiscardPile({
   };
 
   const verifyDiscard = () => {
-    debugger;
     //if it's black's turn
     if (turn === 1) {
       const currIndex = pieceIndex[2] + 1;
@@ -91,7 +90,6 @@ function DiscardPile({
   };
 
   const handleDiscard = () => {
-    debugger;
     if (turn === 0 && clicked && verifyLastPieces() !== false) {
       const valueToCompare = pieceIndex[3];
       if (
@@ -106,7 +104,6 @@ function DiscardPile({
     }
 
     if (turn === 1 && clicked && verifyLastPieces() !== false) {
-      debugger;
       const valueToCompare = pieceIndex[2] + 1;
       if (
         possibleMoves[0] === valueToCompare ||
