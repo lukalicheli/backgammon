@@ -40,6 +40,7 @@ function DiscardPile({
   };
 
   const verifyDiscard = () => {
+    debugger;
     //if it's black's turn
     if (turn === 1) {
       const currIndex = pieceIndex[2] + 1;
@@ -55,6 +56,18 @@ function DiscardPile({
 
       //If it's white's turn
     } else if (turn === 0) {
+      const currIndex = pieceIndex[2] - 1;
+
+      for (let i = currIndex; i > 18; i--) {
+        const subarray = backgammon[i][0];
+
+        if (subarray !== 0) {
+          console.log("false");
+          return false;
+        } else {
+          console.log("true");
+        }
+      }
     }
   };
 
@@ -90,7 +103,6 @@ function DiscardPile({
   };
 
   const handleDiscard = () => {
-    debugger;
     if (turn === 0 && clicked && verifyLastPieces() !== false) {
       const valueToCompare = pieceIndex[3];
       if (
@@ -98,6 +110,8 @@ function DiscardPile({
         possibleMoves[1] === valueToCompare
       ) {
         //new Values for backgammon board
+        discardPiece();
+      } else if (verifyDiscard() !== false) {
         discardPiece();
       } else {
         console.log("handleDiscard error");

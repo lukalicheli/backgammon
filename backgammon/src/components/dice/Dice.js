@@ -44,8 +44,8 @@ function Dice({
     // let firstDice = dice[Math.floor(Math.random() * 6)];
     // let secondDice = dice[Math.floor(Math.random() * 6)];
 
-    let firstDice = dice[5];
-    let secondDice = dice[4];
+    let firstDice = dice[4];
+    let secondDice = dice[5];
 
     // Reset the peice index and clicked so movement can work with no bugs
     setPieceIndex(null);
