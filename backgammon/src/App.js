@@ -26,10 +26,10 @@ function App() {
   const [possibleColumnIndex, setPossibleColumnIndex] = useState([]);
   const [backgammon, setBackgammon] = useState([
     // value = [how many pieces in each slot, 0=white piece 1=brown piece, position on board starting from 0 like an array count]
-    [1, 1, 0],
-    [1, 1, 1],
-    [1, 1, 2],
-    [1, 1, 3],
+    [5, 1, 0],
+    [5, 1, 1],
+    [5, 1, 2],
+    [0, -1, 3],
     [0, -1, 4],
     [0, -1, 5],
     [0, -1, 6],
@@ -46,9 +46,9 @@ function App() {
     [0, -1, 17],
     [0, -1, 18, 6],
     [0, -1, 19, 5],
-    [1, 0, 20, 4],
-    [1, 0, 21, 3],
-    [1, 0, 22, 2],
+    [5, 0, 20, 4],
+    [5, 0, 21, 3],
+    [4, 0, 22, 2],
     [1, 0, 23, 1],
 
     // [2, 0, 0],
@@ -459,6 +459,8 @@ function App() {
         setRevived={setRevived}
         clicked={clicked}
         handleClick={handleClick}
+        killPileOne={killPileOne}
+        killPileTwo={killPileTwo}
       />
       <PlayerTurn turn={turn} />
     </div>

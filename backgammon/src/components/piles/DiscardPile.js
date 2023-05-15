@@ -18,6 +18,8 @@ function DiscardPile({
   setPossibleMoves,
   setBackgammon,
   setTurn,
+  killPileOne,
+  killPileTwo,
 }) {
   const verifyLastPieces = () => {
     const backgammonBoard = [...backgammon];
@@ -134,10 +136,18 @@ function DiscardPile({
     }
   };
 
+  const maxPieces = 9;
+
   const discardedPieces = [];
   const discardedPiecesTwo = [];
 
-  for (let i = 0; i < discardPileOne; i++) {
+  const discardedPieceCount =
+    discardPileOne > maxPieces ? maxPieces : discardPileOne;
+
+  const discardedPieceCountTwo =
+    discardPileTwo > maxPieces ? maxPieces : discardPileTwo;
+
+  for (let i = 0; i < discardedPieceCount; i++) {
     discardedPieces.push(
       <PileOne
         className="killed-piece brown"
@@ -148,7 +158,7 @@ function DiscardPile({
     );
   }
 
-  for (let i = 0; i < discardPileTwo; i++) {
+  for (let i = 0; i < discardedPieceCountTwo; i++) {
     discardedPiecesTwo.push(
       <PileTwo
         className="killed-piece white"
@@ -164,6 +174,8 @@ function DiscardPile({
       <div className="discard-pile one" onClick={() => handleDiscard()}>
         {discardedPieces}
       </div>
+      <PileCount>{discardPileOne}</PileCount>
+      <PileCount>{discardPileTwo}</PileCount>
       <div className="discard-pile two" onClick={() => handleDiscard()}>
         {discardedPiecesTwo}
       </div>
@@ -180,6 +192,16 @@ const Container = styled.div`
   right: 0%;
   width: 8%;
   height: 90%;
+`;
+
+const PileCount = styled.p`
+  width: 50px;
+  height: 20px;
+  color: black;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  background-color: orangered;
 `;
 
 const PileOne = styled.img`

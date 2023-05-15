@@ -136,7 +136,6 @@ function Dice({
         setRevived(false);
       }
     } else if (turn === 1) {
-      debugger;
       if (
         backgammon[firstIndex][1] === 1 || //These first two are to check
         backgammon[firstIndex][1] === -1 ||
