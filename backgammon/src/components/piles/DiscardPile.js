@@ -115,6 +115,14 @@ function DiscardPile({
         discardPiece();
       } else if (verifyDiscard() !== false) {
         discardPiece();
+
+        const highestPiece = Math.max(...possibleMoves);
+
+        const indexToRemove = possibleMoves.indexOf(highestPiece); // Find the index of highestPiece
+        if (indexToRemove !== -1) {
+          const newPossibleMoves = possibleMoves.splice(indexToRemove, 1); // Remove the value at indexToRemove
+          setPossibleMoves(newPossibleMoves);
+        }
       } else {
         console.log("handleDiscard error");
       }
