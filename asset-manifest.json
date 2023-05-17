@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/backgammon/static/css/main.d75e0b26.css",
+    "main.js": "/backgammon/static/js/main.21438f0f.js",
+    "static/js/787.b05c6a6b.chunk.js": "/backgammon/static/js/787.b05c6a6b.chunk.js",
+    "static/media/backgammon.jpg": "/backgammon/static/media/backgammon.ec0fe0d4d03fe9cc8801.jpg",
+    "static/media/white-piece.png": "/backgammon/static/media/white-piece.813bb00e75d8273390cb.png",
+    "static/media/brown-piece.png": "/backgammon/static/media/brown-piece.ab2767e663aaf7e890dc.png",
+    "static/media/dice6.png": "/backgammon/static/media/dice6.5abbe09e4acd69fe1020.png",
+    "static/media/dice5.png": "/backgammon/static/media/dice5.329664beda1514362591.png",
+    "index.html": "/backgammon/index.html",
+    "main.d75e0b26.css.map": "/backgammon/static/css/main.d75e0b26.css.map",
+    "main.21438f0f.js.map": "/backgammon/static/js/main.21438f0f.js.map",
+    "787.b05c6a6b.chunk.js.map": "/backgammon/static/js/787.b05c6a6b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d75e0b26.css",
+    "static/js/main.21438f0f.js"
+  ]
+}
